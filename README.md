@@ -21,6 +21,14 @@ This framework has a validation system using reflection and in a simple and prac
 pod 'GPSMaskTextField', '~> 1.0.0'
 ```
 
+## Manually
+
+Primeiro você deve criar um UITextField no Interface Builder
+
+![criando um UITextField](https://uploaddeimagens.com.br/images/002/056/264/original/criacaoTextField.png)
+
+
+
 ## Credits
 
 GPSMaskTextField was developed by Gilson Santos (gilsonsantosti@gmail.com)
