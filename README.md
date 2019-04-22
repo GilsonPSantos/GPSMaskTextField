@@ -23,9 +23,14 @@ pod 'GPSMaskTextField', '~> 1.0.0'
 
 ## Manually
 
-Primeiro você deve criar um UITextField no Interface Builder
+- Primeiro você deve criar um UITextField no Interface Builder
 
 ![criando um UITextField](https://uploaddeimagens.com.br/images/002/056/264/original/criacaoTextField.png)
+
+- Segundo basta atribuir a classe customizada GPSMaskTextField a seu UITextField
+
+![atribuindo a classe customizada](https://uploaddeimagens.com.br/images/002/056/282/original/AtribuindoClasseCustomizada.png)
+
 
 
 
