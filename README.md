@@ -58,6 +58,13 @@ Mas se preferir implementar o próprio delegate do UITextField, poderá fazê-lo
 ```
 a mascara poderá ser uma cadeia de caracteres, espaços e etc. O # é onde o texto será inserido pelo usuário.
 
+O melhor na utilização do Custom Mask é que visando a praticidade do desenvolvedor na hora de resgatar o valor atribuido ao UITextField o GPSMaskTextField possui uma função, conforme exemplo abaixo que retorna o valor digitado pelo usuário sem a mascara, não precisando mais fazer replace para obtenção desse valor:
+
+```swift
+let valueString = textField.getTextWithoutMask()
+```
+
+
 - `Minimum Size`: Minimo de caracteres exigidos para o campo.
 - `Maximum Size`: Máximo de caracteres exigidos para o campo.
 
