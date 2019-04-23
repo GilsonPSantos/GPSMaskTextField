@@ -42,6 +42,10 @@ import GPSMaskTextField
 @IBOutlet weak var textField: GPSMaskTextField!
 ```
 
+Apenas isso já é o suficiente para que você possa utilizar todos os recursos de validações básicas, disponíveis no Interface Builder. Com o GPSMaskTextField você não precisa nem atribuir o delegate à sua ViewController, isso já é feito automático. 
+
+Mas se preferir implementar o próprio delegate do UITextField, poderá fazê-lo da forma convencional que automaticamente ele torna-se prioritário na sua ViewController.
+
 - No Interface Builder temos as seguintes configurações:
 
 ![Configurações](https://uploaddeimagens.com.br/images/002/056/639/original/Configuracoes.png)
