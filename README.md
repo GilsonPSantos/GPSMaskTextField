@@ -52,7 +52,7 @@ import GPSMaskTextField
 2 - #### %
 3 - ####### @gmail.com
 ```
-a mascara poderá ser uma cadeia de caracteres, espaços e etc.
+a mascara poderá ser uma cadeia de caracteres, espaços e etc. O # é onde o texto será inserido pelo usuário.
 
 
 
