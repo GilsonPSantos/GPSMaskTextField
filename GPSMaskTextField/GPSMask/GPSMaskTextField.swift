@@ -224,7 +224,7 @@ extension GPSMaskTextField {
        return returnString
     }
     
-    func getTextWithoutMask() -> String {
+    public func getTextWithoutMask() -> String {
         return self.removeMaskText()
     }
 }
