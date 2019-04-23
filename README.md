@@ -21,7 +21,7 @@ This framework has a validation system using reflection and in a simple and prac
 pod 'GPSMaskTextField', '~> 1.0.0'
 ```
 
-## Manually
+## Usage
 
 - Primeiro você deve criar um UITextField no Interface Builder
 
