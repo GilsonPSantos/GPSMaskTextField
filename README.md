@@ -43,13 +43,14 @@ import GPSMaskTextField
 ```
 
 - No Interface Builder temos as seguintes configurações:
+
 ![Configurações](https://uploaddeimagens.com.br/images/002/056/639/original/Configuracoes.png)
 
 - `Custom Mask`: Mascara a ser utilizada conforme exemplos:
 ```swift
 1 - (##) #### - ####
 2 - #### %
-3 - #######@gmail.com
+3 - ####### @gmail.com
 ```
 a mascara poderá ser uma cadeia de caracteres, espaços e etc.
 
