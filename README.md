@@ -31,6 +31,16 @@ pod 'GPSMaskTextField', '~> 1.0.0'
 
 ![atribuindo a classe customizada](https://uploaddeimagens.com.br/images/002/056/282/original/AtribuindoClasseCustomizada.png)
 
+- Terceiro import o GPSMaskTextField e crie o Outlet:
+
+```swift
+import GPSMaskTextField
+```
+![criando o Outlet](https://uploaddeimagens.com.br/images/002/056/625/original/CriandoOutlet.png)
+
+```swift
+@IBOutlet weak var textField: GPSMaskTextField!
+```
 
 
 
