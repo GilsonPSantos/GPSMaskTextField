@@ -54,6 +54,12 @@ import GPSMaskTextField
 ```
 a mascara poderá ser uma cadeia de caracteres, espaços e etc. O # é onde o texto será inserido pelo usuário.
 
+- `Minimum Size`: Minimo de caracteres exigidos para o campo.
+- `Maximum Size`: Máximo de caracteres exigidos para o campo.
+
+Caso campo Custom Mask seja preenchido essas 2 configurações serão automaticamente atribuidas com o tamanho da mascara configurada.
+
+- `Name TextField`: Nome amigável, utilizado para a opção de validação de todos os campos (tratado abaixo), na qual retorna para o campo não válido esse nome amigável, caso o desenvolvedor queira usá-lo para apresentação de mensagem.
 
 
 ## Credits
