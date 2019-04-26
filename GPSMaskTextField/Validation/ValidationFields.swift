@@ -41,6 +41,7 @@ public class ValidationFields {
     private var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
     private var finish = false
     private var view: AnyObject!
+    public init(){}
 }
 
 // MARK: - INITIAL SETTING -
