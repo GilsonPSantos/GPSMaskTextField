@@ -153,8 +153,6 @@ extension GPSMaskTextField: UITextFieldDelegate{
             }
         }
         
-        
-        
         if let index = self.index, self.maxSize != -1 {
             self.validationDelegate?.verifyHideKeyboard(index)
         }

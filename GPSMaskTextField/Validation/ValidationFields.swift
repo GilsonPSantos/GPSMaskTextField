@@ -32,7 +32,7 @@ public struct FieldsValidation {
 }
 
 // MARK: - START OF THE VALIDATION CLASS -
-class ValidationFields {
+public final class ValidationFields {
     
     // - DECLARATION OF VARIABLES -
     private weak var validateDelegate: ValidationFieldsDelegate?
@@ -69,13 +69,13 @@ extension ValidationFields {
 extension ValidationFields: ValidationFieldDelegate {
     
     // UPDATES REQUIRED FIELD STATUS
-    func updateRequired(_ index: Int, isEmptyField: Bool) {
+    public func updateRequired(_ index: Int, isEmptyField: Bool) {
         self.textFieldListForValidation[index].validIsRequired = !isEmptyField
         self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: isEmptyField)
     }
     
     // UPDATES THE STATUS OF THE ELEMENT IN THE LIST OF FIELDS FOR VALIDATION AND IF IT IS ERROR ACTION THE DELEGATE FOR COMMUNICATION WITH CONTROLLER
-    func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool) {
+    public func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool) {
         self.textFieldListForValidation[index].errorValidation = errorValidation
         if errorValidation != .none, notificationUser {
             self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: false)
@@ -83,14 +83,14 @@ extension ValidationFields: ValidationFieldDelegate {
     }
     
     // CHECK IF YOU CAN PASS TO THE NEXT FIELD AFTER YOU ARE VALIDATED
-    func nextField(index: Int) {
+    public func nextField(index: Int) {
         if index < self.textFieldListForValidation.count - 1, self.textFieldListForValidation[index + 1].errorValidation != .none {
             self.textFieldListForValidation[index + 1].textField.becomeFirstResponder()
         }
     }
     
     // CHECK IF IT CAN HIDE THE KEYBOARD
-    func verifyHideKeyboard(_ index: Int) {
+    public func verifyHideKeyboard(_ index: Int) {
         if self.finish {
             self.textFieldListForValidation[index].textField.endEditing(true)
         }
