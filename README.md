@@ -89,6 +89,7 @@ Saída:
 ```
 - `Is Required`: Configuração que determina se o campos será obrigatório ou não para utilização na funcionalidade de validação de todos os campos, conforme explicado abaixo na opção "Validando todos os campos".
 
+- `Next To Validate`: Se "On" habilita o campo para que após a validação de acordo com suas configurações realizadas ele passa o fucus para o próximo campo, se houver. Por default esse valor é "Off"
 
 
 ## Credits
