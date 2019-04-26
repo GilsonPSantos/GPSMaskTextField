@@ -87,6 +87,9 @@ Saída:
 "1.200,00"
 "76.454.500,00"
 ```
+- `Is Required`: Configuração que determina se o campos será obrigatório ou não para utilização na funcionalidade de validação de todos os campos, conforme explicado abaixo na opção "Validando todos os campos".
+
+
 
 ## Credits
 
