@@ -91,6 +91,9 @@ Saída:
 
 - `Next To Validate`: Se "On" habilita o campo para que, após a validação de acordo com suas configurações realizadas, ele passa o fucus para o próximo campo, se houver. Por default esse valor é "Off"
 
+## Validando todos os campos
+
+GPSMaskTextField possui uma classe de validação que se instanciada, usando reflection, se encarrega de todas as validações configuradas para o campo e notifica sua controller se todos os campos estão validos ou não conforme explicado na seção de "Delegates da validação dos campos".
 
 ## Credits
 
