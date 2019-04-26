@@ -72,6 +72,11 @@ Caso campo Custom Mask seja preenchido essas 2 configurações serão automatica
 
 - `Name TextField`: Nome amigável, utilizado para a opção de validação de todos os campos (tratado abaixo), na qual retorna para o campo não válido esse nome amigável, caso o desenvolvedor queira usá-lo para apresentação de mensagem.
 
+- `Is Currency`: Um valor que determina se o campo é do tipo monetário, se sim os campos "Main Separator e Decimal Separator" deverão ser preenchidos.
+
+- `Main Separator`: Caracter utilizado quando o campo for do tipo monetário, nas cadas dos milhares, configurado no "Is Currency".
+
+- `Decimal Separator`: Caracter utilizado quando o campo for do tipo monetário, nas casas deciamais, configurado no "Is Currency".
 
 ## Credits
 
