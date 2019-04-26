@@ -32,7 +32,7 @@ public struct FieldsValidation {
 }
 
 // MARK: - START OF THE VALIDATION CLASS -
-public final class ValidationFields {
+public class ValidationFields {
     
     // - DECLARATION OF VARIABLES -
     private weak var validateDelegate: ValidationFieldsDelegate?
@@ -45,7 +45,7 @@ public final class ValidationFields {
 
 // MARK: - INITIAL SETTING -
 extension ValidationFields {
-    func validationAllFields(for view: AnyObject, delegate: ValidationFieldsDelegate) {
+    public func validationAllFields(for view: AnyObject, delegate: ValidationFieldsDelegate) {
         self.validateDelegate = delegate
         self.actionDelegate = view as? ValidationActionDelegate
         self.view = view
