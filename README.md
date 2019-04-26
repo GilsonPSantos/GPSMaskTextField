@@ -64,7 +64,6 @@ O melhor na utilização do Custom Mask é que visando a praticidade do desenvol
 let valueString = textField.getTextWithoutMask()
 ```
 
-
 - `Minimum Size`: Minimo de caracteres exigidos para o campo.
 - `Maximum Size`: Máximo de caracteres exigidos para o campo.
 
@@ -72,11 +71,22 @@ Caso campo Custom Mask seja preenchido essas 2 configurações serão automatica
 
 - `Name TextField`: Nome amigável, utilizado para a opção de validação de todos os campos (tratado abaixo), na qual retorna para o campo não válido esse nome amigável, caso o desenvolvedor queira usá-lo para apresentação de mensagem.
 
-- `Is Currency`: Um valor que determina se o campo é do tipo monetário, se sim os campos "Main Separator e Decimal Separator" deverão ser preenchidos.
+- `Is Currency`: Um valor que determina se o campo é do tipo monetário, se sim os campos "Main Separator e Decimal Separator" deverão ser preenchidos. Por default esse valor é off (false).
 
 - `Main Separator`: Caracter utilizado quando o campo for do tipo monetário, nas cadas dos milhares, configurado no "Is Currency".
 
 - `Decimal Separator`: Caracter utilizado quando o campo for do tipo monetário, nas casas deciamais, configurado no "Is Currency".
+
+Exemplo de utilização:
+
+![Configurações](https://uploaddeimagens.com.br/images/002/068/593/original/confCurrency.png)
+
+Saída:
+
+```swift
+1.200,00
+76.454.500,00
+```
 
 ## Credits
 
