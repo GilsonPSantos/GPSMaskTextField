@@ -1,5 +1,3 @@
-![GPSMaskTextField: A procura do melhor caminho.](https://uploaddeimagens.com.br/images/002/071/418/original/logoGPSMask.png)
-
 # GPSMaskTextField
 
 GPSMaskTextField is a framework for UITextField that helps the development of forms without the developer worrying about the basics of validations that a field needs.

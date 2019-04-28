@@ -70,13 +70,13 @@ extension ValidationFields {
 extension ValidationFields: ValidationFieldDelegate {
     
     // UPDATES REQUIRED FIELD STATUS
-    public func updateRequired(_ index: Int, isEmptyField: Bool) {
+    func updateRequired(_ index: Int, isEmptyField: Bool) {
         self.textFieldListForValidation[index].validIsRequired = !isEmptyField
         self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: isEmptyField)
     }
     
     // UPDATES THE STATUS OF THE ELEMENT IN THE LIST OF FIELDS FOR VALIDATION AND IF IT IS ERROR ACTION THE DELEGATE FOR COMMUNICATION WITH CONTROLLER
-    public func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool) {
+    func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool) {
         self.textFieldListForValidation[index].errorValidation = errorValidation
         if errorValidation != .none, notificationUser {
             self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: false)
@@ -84,14 +84,14 @@ extension ValidationFields: ValidationFieldDelegate {
     }
     
     // CHECK IF YOU CAN PASS TO THE NEXT FIELD AFTER YOU ARE VALIDATED
-    public func nextField(index: Int) {
+    func nextField(index: Int) {
         if index < self.textFieldListForValidation.count - 1, self.textFieldListForValidation[index + 1].errorValidation != .none {
             self.textFieldListForValidation[index + 1].textField.becomeFirstResponder()
         }
     }
     
     // CHECK IF IT CAN HIDE THE KEYBOARD
-    public func verifyHideKeyboard(_ index: Int) {
+    func verifyHideKeyboard(_ index: Int) {
         if self.finish {
             self.textFieldListForValidation[index].textField.endEditing(true)
         }

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: - PROTOCOL -
-public protocol ValidationFieldDelegate {
+ protocol ValidationFieldDelegate {
     func updateRequired(_ index: Int, isEmptyField: Bool)
     func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func nextField(index: Int)
