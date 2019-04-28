@@ -134,6 +134,25 @@ public struct FieldsValidation {
     var textField = GPSMaskTextField() // Objeto do campo TextField
 }
 ```
+## Delegates da validação dos campos
+
+Para utilização do recurso de validação automática, proporcionado pela classe "ValidationFields" sua Controller deverá obrigatoriamente implementar o "ValidationFieldsDelegate" e opcionalmente poderá implementar o "ValidationActionDelegate" para capturar especificamente a exibição e ocultação do teclado:
+
+```swift
+// Obrigatório para captura dos eventos de validação
+ public protocol ValidationFieldsDelegate: NSObjectProtocol {
+    func allFieldsValid()
+    func notValidAllFields(fildesNotValid: [FieldsValidation])
+}
+
+// Opcional para captura da exibição ou ocultação do teclado
+@objc public protocol ValidationActionDelegate: NSObjectProtocol {
+    @objc optional func showKeyboard(notification: Notification)
+    @objc optional func hideKeyboard(notification: Notification)
+    
+}
+```
+
 
 
 ## Credits
