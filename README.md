@@ -97,6 +97,8 @@ GPSMaskTextField possui uma classe de validação que se instanciada, usando ref
 
 Para utilizar os recursos de validação automática basta chamar no viewDidLoad da sua Controller a instância da classe "ValidationFields()", chamando sua função "validationAllFields()", informando qual a classe que possui os objetos do GPSMaskTextField a serem validados no primeiro parâmetro e no segundo quem implementará o delegate com as respostas "ValidationFieldsDelegate", conforme exemplo abaixo:
 
+A validação automática só comtempla os campos que tiverem com o "Is Required" habilitado "On". Os campos que estiverem com essa opção "Off" terão suas máscaras aplicadas normalmente porém não são comtemplados por essa validação extra.
+
 ```swift
 import UIKit
 import GPSMaskTextField
@@ -122,6 +124,17 @@ extension ViewController : ValidationFieldsDelegate {
     }  
 }
 ```
+O parâmetro da função "notValidAllFields(fildesNotValid: [FieldsValidation])" trata-se de um array de uma struct retornando informações e o próprio objeto GPSMaskTextField:
+
+```swift
+public struct FieldsValidation {
+    var validIsRequired = false // Se o campo é required
+    var name = "" // Nome amigável configurado no Interface Builder
+    var errorValidation: ErrorValidateMask = .none // Enum com o tipo do erro na validação
+    var textField = GPSMaskTextField() // Objeto do campo TextField
+}
+```
+
 
 ## Credits
 
