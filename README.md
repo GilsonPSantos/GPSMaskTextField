@@ -153,7 +153,9 @@ Para utilização do recurso de validação automática, proporcionado pela clas
 }
 ```
 
+## Agradecimentos
 
+Agradeço primeiramente a Deus, minha família pelo apoio e principalmente a compreensão e aos meus amigos que me ajudaram e apoiaram desde o início, principalmente meus amigos Tomaz Correa, Vitor Maura, Millfford Bradshows. Muito obrigado a todos.
 
 ## Credits
 
