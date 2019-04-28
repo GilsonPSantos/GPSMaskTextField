@@ -148,7 +148,7 @@ extension GPSMaskTextField: UITextFieldDelegate{
                 self.setValidMinTextField(textUpdate, notificationUser: false)
                 self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
             }
-            if (textUpdate.count == self.maskFormatter.count) || (textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
+            if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
                 self.validationDelegate?.nextField(index: index)
             }
         }
