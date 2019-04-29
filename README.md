@@ -89,7 +89,7 @@ Output:
 ```
 - `Is Required`: Configuration that determines whether the fields will be mandatory or not for use in the validation functionality of all fields, as explained below in the "Validating all fields" option.
 
-- `Next To Validate`: If "On" enables the field so that, after validation according to its settings made, it passes the fucus to the next field, if any. By default this value is "Off". For this functionality to work properly IBOutlets must be declared in their Controller in the same order as their Interface Builder.
+- `Next To Validate`: If "On" enables the field so that, after validation according to its settings made, it passes the focus to the next field, if any. By default this value is "Off". For this functionality to work properly IBOutlets must be declared in their Controller in the same order as their Interface Builder.
 
 ## Validating all fields
 
