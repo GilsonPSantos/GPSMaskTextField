@@ -50,7 +50,7 @@ But if you prefer to implement the UITextField delegate itself, you can do so in
 
 ![Configurações](https://uploaddeimagens.com.br/images/002/056/639/original/Configuracoes.png)
 
-- `Custom Mask`: Mascara to be used as examples:
+- `Custom Mask`: Mask to be used as examples:
 ```swift
 1 - (##) #### - ####
 2 - #### %
