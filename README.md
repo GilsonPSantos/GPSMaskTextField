@@ -23,15 +23,15 @@ pod 'GPSMaskTextField', '~> 1.0.0'
 
 ## Usage
 
-- Primeiro você deve criar um UITextField no Interface Builder
+- First you must create a UITextField in Interface Builder.
 
 ![criando um UITextField](https://uploaddeimagens.com.br/images/002/056/264/original/criacaoTextField.png)
 
-- Segundo basta atribuir a classe customizada GPSMaskTextField a seu UITextField
+- Second just assign the custom class GPSMaskTextField to your UITextField
 
 ![atribuindo a classe customizada](https://uploaddeimagens.com.br/images/002/056/282/original/AtribuindoClasseCustomizada.png)
 
-- Terceiro import o GPSMaskTextField e crie o Outlet:
+- Third import the GPSMaskTextField and create the IBOutlet:
 
 ```swift
 import GPSMaskTextField
@@ -42,62 +42,62 @@ import GPSMaskTextField
 @IBOutlet weak var textField: GPSMaskTextField!
 ```
 
-Apenas isso já é o suficiente para que você possa utilizar todos os recursos de validações básicas, disponíveis no Interface Builder. Com o GPSMaskTextField você não precisa nem atribuir o delegate à sua ViewController, isso já é feito automaticamente. 
+This alone is enough for you to use all the basic validation features available in Interface Builder. With the GPSMaskTextField you do not even have to assign the delegate to your ViewController, this is already done automatically. 
 
-Mas se preferir implementar o próprio delegate do UITextField, poderá fazê-lo da forma convencional que automaticamente se torna prioritário na sua ViewController.
+But if you prefer to implement the UITextField delegate itself, you can do so in the conventional way that automatically becomes a priority in your ViewController.
 
-- No Interface Builder temos as seguintes configurações:
+- In the Interface Builder we have the following configurations:
 
 ![Configurações](https://uploaddeimagens.com.br/images/002/056/639/original/Configuracoes.png)
 
-- `Custom Mask`: Mascara a ser utilizada conforme exemplos:
+- `Custom Mask`: Mascara to be used as examples:
 ```swift
 1 - (##) #### - ####
 2 - #### %
 3 - ####### @gmail.com
 ```
-a mascara poderá ser uma cadeia de caracteres, espaços e etc. O # é onde o texto será inserido pelo usuário.
+The mask can be a string of characters, spaces, and so on. The # is where the text will be entered by the user.
 
-O melhor na utilização do Custom Mask é que visando a praticidade do desenvolvedor na hora de resgatar o valor atribuido ao UITextField o GPSMaskTextField possui uma função, conforme exemplo abaixo que retorna o valor digitado pelo usuário sem a mascara, não precisando mais fazer replace para obtenção desse valor:
+The best thing about using Custom Mask is that for the convenience of the developer to redeem the value assigned to the UITextField, the GPSMaskTextField has a function, according to the example below, that returns the value entered by the user without the mask, no longer having to do replace for obtaining of this value:
 
 ```swift
 let valueString = textField.getTextWithoutMask()
 ```
 
-- `Minimum Size`: Minimo de caracteres exigidos para o campo.
-- `Maximum Size`: Máximo de caracteres exigidos para o campo.
+- `Minimum Size`: Minimum of characters required for the field.
+- `Maximum Size`: Maximum characters required for the field.
 
-Caso campo Custom Mask seja preenchido essas 2 configurações serão automaticamente atribuidas com o tamanho da mascara configurada.
+If Custom Mask field is filled in these 2 settings will be automatically assigned with the mask size set.
 
-- `Name TextField`: Nome amigável, utilizado para a opção de validação de todos os campos (tratado abaixo), na qual retorna para o campo não válido esse nome amigável, caso o desenvolvedor queira usá-lo para apresentação de mensagem.
+- `Name TextField`: Friendly name, used for the validation option of all the fields (treated below), in which returns to the invalid field this friendly name, in case the developer wants to use it for message presentation.
 
-- `Is Currency`: Um valor que determina se o campo é do tipo monetário, se sim os campos "Main Separator e Decimal Separator" deverão ser preenchidos. Por default esse valor é off (false).
+- `Is Currency`: A value that determines if the field is of the monetary type, if yes the fields "Main Separator and Decimal Separator" should be filled in. By default this value is off (false).
 
-- `Main Separator`: Caracter utilizado quando o campo for do tipo monetário, nas cadas dos milhares, configurado no "Is Currency".
+- `Main Separator`: Character used when the field is of the monetary type, in the thousands, in the "Is Currency".
 
-- `Decimal Separator`: Caracter utilizado quando o campo for do tipo monetário, nas casas deciamais, configurado no "Is Currency".
+- `Decimal Separator`: Character used when the field is of the monetary type, in the decimal houses, configured in the "Is Currency".
 
-Exemplo de utilização:
+Example of use:
 
 ![Configurações](https://uploaddeimagens.com.br/images/002/068/593/original/confCurrency.png)
 
-Saída:
+Output:
 
 ```swift
 "1.200,00"
 "76.454.500,00"
 ```
-- `Is Required`: Configuração que determina se o campos será obrigatório ou não para utilização na funcionalidade de validação de todos os campos, conforme explicado abaixo na opção "Validando todos os campos".
+- `Is Required`: Configuration that determines whether the fields will be mandatory or not for use in the validation functionality of all fields, as explained below in the "Validating all fields" option.
 
-- `Next To Validate`: Se "On" habilita o campo para que, após a validação de acordo com suas configurações realizadas, ele passa o fucus para o próximo campo, se houver. Por default esse valor é "Off". Para que esse funcionalidade funcione adequadamente é preciso que os IBOutlets estenam declarados na sua Controller na mesma ordem do seu Interface Builder.
+- `Next To Validate`: If "On" enables the field so that, after validation according to its settings made, it passes the fucus to the next field, if any. By default this value is "Off". For this functionality to work properly IBOutlets must be declared in their Controller in the same order as their Interface Builder.
 
-## Validando todos os campos
+## Validating all fields
 
-GPSMaskTextField possui uma classe de validação que se instanciada, usando reflection, se encarrega de todas as validações configuradas para o campo e notifica sua controller se todos os campos estão validos ou não conforme explicado na seção de "Delegates da validação dos campos".
+GPSMaskTextField has a validation class that if instantiated, using reflection, takes care of all the validations configured for the field and notifies its controller if all the fields are valid or not as explained in the section "Delegates of field validation".
 
-Para utilizar os recursos de validação automática basta chamar no viewDidLoad da sua Controller a instância da classe "ValidationFields()", chamando sua função "validationAllFields()", informando qual a classe que possui os objetos do GPSMaskTextField a serem validados no primeiro parâmetro e no segundo quem implementará o delegate com as respostas "ValidationFieldsDelegate", conforme exemplo abaixo:
+To use the automatic validation features, simply invoke the instance of the "ValidationFields ()" class in the viewDidLoad, calling its function "validationAllFields ()", informing which class has the GPSMaskTextField objects to validate in the first parameter and in the second who will implement the delegate with the answers "ValidationFieldsDelegate", according to example below:
 
-A validação automática só comtempla os campos que tiverem com o "Is Required" habilitado "On". Os campos que estiverem com essa opção "Off" terão suas máscaras aplicadas normalmente porém não são comtemplados por essa validação extra.
+The automatic validation only resets the fields that have "Is Required" enabled "On". Fields that have this option "Off" will have their masks applied normally but are not contemplated by this extra validation.
 
 ```swift
 import UIKit
@@ -116,36 +116,36 @@ class ViewController: UIViewController {
 }
 extension ViewController : ValidationFieldsDelegate {
     func allFieldsValid() {
-        // Todos os campos estão válidos
+        // All fields are valid
     }
     
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
-        // Informa todos os campos que ainda não atenderam a sua validação
+        // Reports all fields that have not yet met your validation
     }  
 }
 ```
-O parâmetro da função "notValidAllFields(fildesNotValid: [FieldsValidation])" trata-se de um array de uma struct retornando informações e o próprio objeto GPSMaskTextField:
+The function parameter "notValidAllFields (fildesNotValid: [FieldsValidation])" is an array of a struct returning information and the object itself GPSMaskTextField:
 
 ```swift
 public struct FieldsValidation {
-    var validIsRequired = false // Se o campo é required
-    var name = "" // Nome amigável configurado no Interface Builder
-    var errorValidation: ErrorValidateMask = .none // Enum com o tipo do erro na validação
-    var textField = GPSMaskTextField() // Objeto do campo TextField
+    var validIsRequired = false // If the field is required
+    var name = "" // Friendly name configured in Interface Builder
+    var errorValidation: ErrorValidateMask = .none // Enum with type of error in validation
+    var textField = GPSMaskTextField() // TextField field object
 }
 ```
-## Delegates da validação dos campos
+## Field Validation Delegates
 
-Para utilização do recurso de validação automática, proporcionado pela classe "ValidationFields" sua Controller deverá obrigatoriamente implementar o "ValidationFieldsDelegate" e opcionalmente poderá implementar o "ValidationActionDelegate" para capturar especificamente a exibição e ocultação do teclado:
+To use the automatic validation feature provided by the "ValidationFields" class, your Controller must implement the "ValidationFieldsDelegate" and optionally you can implement the "ValidationActionDelegate" to specifically capture the keyboard display and hiding:
 
 ```swift
-// Obrigatório para captura dos eventos de validação
+// Required to capture validation events
  public protocol ValidationFieldsDelegate: NSObjectProtocol {
     func allFieldsValid()
     func notValidAllFields(fildesNotValid: [FieldsValidation])
 }
 
-// Opcional para captura da exibição ou ocultação do teclado
+// Optional for capturing keyboard display or hiding
 @objc public protocol ValidationActionDelegate: NSObjectProtocol {
     @objc optional func showKeyboard(notification: Notification)
     @objc optional func hideKeyboard(notification: Notification)
@@ -153,9 +153,9 @@ Para utilização do recurso de validação automática, proporcionado pela clas
 }
 ```
 
-## Agradecimentos
+## Thanks
 
-Agradeço primeiramente a Deus, minha família pelo apoio e principalmente a compreensão e aos meus amigos que me ajudaram e apoiaram desde o início, principalmente meus amigos Tomaz Correa, Vitor Maura, Millfford Bradshaw. Muito obrigado a todos.
+First of all, thank God, my family for the support and especially the understanding and for my friends who helped me and supported me from the beginning, especially my friends Tomaz Correa, Vitor Maura, Millfford Bradshaw. Thank you all.
 
 ## Credits
 
