@@ -8,7 +8,7 @@ s.summary = "GPSMaskTextField lets a user select an ice cream flavor."
 s.requires_arc = true
 
 # 2
-s.version = "0.2.0"
+s.version = "0.3.0"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
@@ -33,6 +33,6 @@ s.source_files = "GPSMaskTextField/**/*.{swift}"
 #s.resources = "GPSMaskTextField/**/*.{png,jpeg,jpg,storyboard,xib,xcassets}"
 
 # 10
-s.swift_version = "4.2"
+s.swift_version = "5.0"
 
 end
