@@ -2,13 +2,13 @@
 
 GPSMaskTextField is a framework for UITextField that helps the development of forms without the developer worrying about the basics of validations that a field needs.
 
-This framework has a validation system using reflection and in a simple and practical way it is possible to validate all text fields in a ViewController using very little code.
+This framework has a validation system using reflection and in a simple and practical way, it is possible to validate all text fields in a ViewController using very little code.
 
 ## Requirements
 
 - iOS 10.0+ / macOS 10.12+ / tvOS 10.0+ / watchOS 3.0+
-- Xcode 10.1+
-- Swift 4.2+
+- Xcode 10.2+
+- Swift 5+
 
 
 ## Installation
@@ -23,15 +23,15 @@ pod 'GPSMaskTextField', '~> 1.0.0'
 
 ## Usage
 
-- First you must create a UITextField in Interface Builder.
+- First, you must create a UITextField in Interface Builder.
 
 ![criando um UITextField](https://uploaddeimagens.com.br/images/002/056/264/original/criacaoTextField.png)
 
-- Second just assign the custom class GPSMaskTextField to your UITextField
+- Second, just assign the custom class GPSMaskTextField to your UITextField
 
 ![atribuindo a classe customizada](https://uploaddeimagens.com.br/images/002/056/282/original/AtribuindoClasseCustomizada.png)
 
-- Third import the GPSMaskTextField and create the IBOutlet:
+- Third, import the GPSMaskTextField and create the IBOutlet:
 
 ```swift
 import GPSMaskTextField
@@ -71,11 +71,11 @@ If Custom Mask field is filled in these 2 settings will be automatically assigne
 
 - `Name TextField`: Friendly name, used for the validation option of all the fields (treated below), in which returns to the invalid field this friendly name, in case the developer wants to use it for message presentation.
 
-- `Is Currency`: A value that determines if the field is of the monetary type, if yes the fields "Main Separator and Decimal Separator" should be filled in. By default this value is off (false).
+- `Is Currency`: A value that determines if the field is of the monetary type, if yes the fields "Main Separator and Decimal Separator" should be filled in. By default, this value is off (false).
 
-- `Main Separator`: Character used when the field is of the monetary type, in the thousands, in the "Is Currency".
+- `Main Separator`: The character used when the field is of the monetary type, in the thousands, in the "Is Currency".
 
-- `Decimal Separator`: Character used when the field is of the monetary type, in the decimal houses, configured in the "Is Currency".
+- `Decimal Separator`: The character used when the field is of the monetary type, in the decimal houses, configured in the "Is Currency".
 
 Example of use:
 
@@ -87,9 +87,9 @@ Output:
 "1.200,00"
 "76.454.500,00"
 ```
-- `Is Required`: Configuration that determines whether the fields will be mandatory or not for use in the validation functionality of all fields, as explained below in the "Validating all fields" option.
+- `Is Required`: The configuration that determines whether the fields will be mandatory or not for use in the validation functionality of all fields, as explained below in the "Validating all fields" option.
 
-- `Next To Validate`: If "On" enables the field so that, after validation according to its settings made, it passes the focus to the next field, if any. By default this value is "Off". For this functionality to work properly IBOutlets must be declared in their Controller in the same order as their Interface Builder.
+- `Next To Validate`: If "On" enables the field so that, after validation according to its settings made, it passes the focus to the next field, if any. By default, this value is "Off". For this functionality to work properly IBOutlets must be declared in their Controller in the same order as their Interface Builder.
 
 ## Validating all fields
 
