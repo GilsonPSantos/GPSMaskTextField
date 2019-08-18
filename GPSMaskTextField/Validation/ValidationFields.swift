@@ -12,9 +12,9 @@ import UIKit
 // MARK: - STRUCT -
 public struct FieldsValidation {
     var validIsRequired = false
-    var name = ""
-    var errorValidation: ErrorValidateMask = .none
-    var textField = GPSMaskTextField()
+    public var name = ""
+    public var errorValidation: ErrorValidateMask = .none
+    public var textField = GPSMaskTextField()
 }
 
 // MARK: - PROTOCOL USED FOR COMMUNICATION WITH CONTROLLER -
