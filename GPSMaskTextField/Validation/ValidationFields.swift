@@ -69,17 +69,26 @@ extension ValidationFields {
         }
     }
     
-    public func addFieldForValidation(_ index: Int, textField: GPSMaskTextField) {
+    public func addOrRemoveFieldForValidation(textField: GPSMaskTextField) {
         if textField.isRequired {
             guard self.textFieldListForValidation.filter({$0.textField == textField}).count == 0 else { return }
             let errorValidate:ErrorValidateMask = textField.minimumSize != -1 ? .minimumValueIsNotValid : .none
             textField.validationDelegate = self
-            textField.index = index
+            textField.index = self.textFieldListForValidation.count
             let validate = FieldsValidation(validIsRequired: false, name: textField.nameTextField, errorValidation: errorValidate, textField: textField)
-            self.textFieldListForValidation.insert(validate, at: index)
-            let text = textField.text ?? ""
-            _ = textField.textField(textField, shouldChangeCharactersIn: NSRange(text) ?? NSRange(location: 0, length: 0), replacementString: "")
+            self.textFieldListForValidation.append(validate)
+            self.forceValidation(textField: textField)
+        } else {
+            textField.index = nil
+            self.textFieldListForValidation.removeAll(where: {$0.textField == textField})
+            let lastTextField = self.textFieldListForValidation.last?.textField ?? GPSMaskTextField()
+            self.forceValidation(textField: lastTextField)
         }
+    }
+    
+    public func forceValidation(textField: GPSMaskTextField) {
+        let text = textField.text ?? ""
+        _ = textField.textField(textField, shouldChangeCharactersIn: NSRange(text) ?? NSRange(location: 0, length: 0), replacementString: "")
     }
 }
 
