@@ -69,7 +69,7 @@ extension ValidationFields {
         }
     }
     
-    func addFieldForValidation(_ index: Int, textField: GPSMaskTextField) {
+    public func addFieldForValidation(_ index: Int, textField: GPSMaskTextField) {
         if textField.isRequired {
             guard self.textFieldListForValidation.filter({$0.textField == textField}).count == 0 else { return }
             let errorValidate:ErrorValidateMask = textField.minimumSize != -1 ? .minimumValueIsNotValid : .none
