@@ -42,6 +42,10 @@ public class ValidationFields {
     private var finish = false
     private var view: AnyObject!
     public init(){}
+    
+    deinit {
+        self.removeObserver()
+    }
 }
 
 // MARK: - INITIAL SETTING -
@@ -62,6 +66,19 @@ extension ValidationFields {
                 self.textFieldListForValidation.append(validate)
                 index += 1
             }
+        }
+    }
+    
+    func addFieldForValidation(_ index: Int, textField: GPSMaskTextField) {
+        if textField.isRequired {
+            guard self.textFieldListForValidation.filter({$0.textField == textField}).count == 0 else { return }
+            let errorValidate:ErrorValidateMask = textField.minimumSize != -1 ? .minimumValueIsNotValid : .none
+            textField.validationDelegate = self
+            textField.index = index
+            let validate = FieldsValidation(validIsRequired: false, name: textField.nameTextField, errorValidation: errorValidate, textField: textField)
+            self.textFieldListForValidation.insert(validate, at: index)
+            let text = textField.text ?? ""
+            _ = textField.textField(textField, shouldChangeCharactersIn: NSRange(text) ?? NSRange(location: 0, length: 0), replacementString: "")
         }
     }
 }
@@ -103,6 +120,11 @@ extension ValidationFields {
     private func registerObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.hideKeyboard), name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+    
+    private func removeObserver() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
     }
     
     @objc private func showKeyboard(notification: Notification) {
