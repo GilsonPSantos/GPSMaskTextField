@@ -81,6 +81,7 @@ extension ValidationFields {
         } else {
             textField.index = nil
             self.textFieldListForValidation.removeAll(where: {$0.textField == textField})
+            self.setIndex()
             let lastTextField = self.textFieldListForValidation.last?.textField ?? GPSMaskTextField()
             self.forceValidation(textField: lastTextField)
         }
@@ -89,6 +90,13 @@ extension ValidationFields {
     public func forceValidation(textField: GPSMaskTextField) {
         let text = textField.text ?? ""
         _ = textField.textField(textField, shouldChangeCharactersIn: NSRange(text) ?? NSRange(location: 0, length: 0), replacementString: "")
+    }
+    
+    private func setIndex() {
+        let listIndex = 0...self.textFieldListForValidation.count - 1
+        listIndex.forEach { (indexRow) in
+            self.textFieldListForValidation[indexRow].textField.index = indexRow
+        }
     }
 }
 
