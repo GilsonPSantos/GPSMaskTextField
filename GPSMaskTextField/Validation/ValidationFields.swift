@@ -77,19 +77,31 @@ extension ValidationFields {
             textField.index = self.textFieldListForValidation.count
             let validate = FieldsValidation(validIsRequired: false, name: textField.nameTextField, errorValidation: errorValidate, textField: textField)
             self.textFieldListForValidation.append(validate)
-            self.forceValidation(textField: textField)
+            self.validationFieldRow(textField: textField)
         } else {
             textField.index = nil
             self.textFieldListForValidation.removeAll(where: {$0.textField == textField})
             self.setIndex()
             let lastTextField = self.textFieldListForValidation.last?.textField ?? GPSMaskTextField()
-            self.forceValidation(textField: lastTextField)
+            self.validationFieldRow(textField: lastTextField)
         }
     }
     
-    public func forceValidation(textField: GPSMaskTextField) {
+    public func forceValidation() {
+        self.textFieldListForValidation.forEach { (fieldRow) in
+            self.validationFieldRow(textField: fieldRow.textField)
+        }
+    }
+    
+    private func validationFieldRow(textField: GPSMaskTextField) {
         let text = textField.text ?? ""
-        _ = textField.textField(textField, shouldChangeCharactersIn: NSRange(text) ?? NSRange(location: 0, length: 0), replacementString: "")
+        let length = !text.isEmpty ? text.count - 1 : 0
+        let range = NSRange(location: length, length: 0)
+        var lastLatter = ""
+        if !text.isEmpty {
+            lastLatter = String(textField.text?.removeLast() ?? Character(""))
+        }
+        _ = textField.textField(textField, shouldChangeCharactersIn: range, replacementString: lastLatter)
     }
     
     private func setIndex() {
