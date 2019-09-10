@@ -17,6 +17,10 @@ import UIKit
     func verifyHideKeyboard(_ index: Int)
 }
 
+@objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    @objc optional func updateMask(textField: UITextField) -> String?
+}
+
 @IBDesignable public class GPSMaskTextField: UITextField {
     open var index:Int?
     private var maskFormatter = ""
@@ -29,6 +33,7 @@ import UIKit
     private var validation = Validation()
     
     var validationDelegate: ValidationFieldDelegate?
+    public var gpsDelegate: GPSMaskTextFieldDelegate?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -151,6 +156,8 @@ extension GPSMaskTextField: UITextFieldDelegate{
             if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
                 self.validationDelegate?.nextField(index: index)
             }
+        } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField), newMask != self.customMask {
+            self.updateMask(newMask: newMask)
         }
         
         if let index = self.index, self.maxSize != -1, textUpdate.count == self.maxSize {
@@ -224,5 +231,15 @@ extension GPSMaskTextField {
     
     public func getTextWithoutMask() -> String {
         return self.removeMaskText()
+    }
+    
+    private func updateMask(newMask: String) {
+        let oldText = self.getTextWithoutMask()
+        self.customMask = newMask
+        self.text = ""
+        for (index, element) in oldText.enumerated() {
+            let range = NSRange(location: index, length: 0)
+            _ = self.textField(self, shouldChangeCharactersIn: range, replacementString: String(element))
+        }
     }
 }
