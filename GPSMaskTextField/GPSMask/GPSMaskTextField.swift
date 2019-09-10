@@ -5,12 +5,12 @@
 //  Created by Gilson Santos on 19/02/19.
 //  Copyright © 2019 Gilson Santos. All rights reserved.
 //
-
-import Foundation
 import UIKit
+import Foundation
+
 
 // MARK: - PROTOCOL -
- protocol ValidationFieldDelegate {
+protocol ValidationFieldDelegate {
     func updateRequired(_ index: Int, isEmptyField: Bool)
     func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func nextField(index: Int)
@@ -33,7 +33,7 @@ import UIKit
     private var validation = Validation()
     
     var validationDelegate: ValidationFieldDelegate?
-    public var gpsDelegate: GPSMaskTextFieldDelegate?
+    public weak var gpsDelegate: GPSMaskTextFieldDelegate?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +44,10 @@ import UIKit
         self.setupDelegate()
         self.getTypeTextField()
         
+    }
+    
+    deinit {
+        self.validationDelegate = nil
     }
     
     @IBInspectable open var customMask: String {
