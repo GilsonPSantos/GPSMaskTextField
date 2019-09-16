@@ -11,18 +11,17 @@ import Foundation
 
 // MARK: - PROTOCOL -
 protocol ValidationFieldDelegate {
-    func updateRequired(_ index: Int, isEmptyField: Bool)
-    func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool)
-    func nextField(index: Int)
-    func verifyHideKeyboard(_ index: Int)
+    func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool)
+    func updateValidationField(_ textField: GPSMaskTextField, errorValidation: ErrorValidateMask, notificationUser: Bool)
+    func verifyHideKeyboard(_ textField: GPSMaskTextField)
+    func addFieldInValidation(_ textField: GPSMaskTextField)
 }
 
 @objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
-    @objc optional func updateMask(textField: UITextField) -> String?
+    @objc optional func updateMask(textField: UITextField, textUpdate: String) -> String?
 }
 
 @IBDesignable public class GPSMaskTextField: UITextField {
-    open var index:Int?
     private var maskFormatter = ""
     private var minSize = -1
     private var maxSize = -1
@@ -31,6 +30,7 @@ protocol ValidationFieldDelegate {
     private var mainSeparatorCurrency = ""
     private var type = UIKeyboardType.default
     private var validation = Validation()
+    private var firstStart = false
     
     var validationDelegate: ValidationFieldDelegate?
     public weak var gpsDelegate: GPSMaskTextFieldDelegate?
@@ -110,9 +110,14 @@ protocol ValidationFieldDelegate {
         }
     }
     
-    @IBInspectable open var isRequired: Bool = false
-    @IBInspectable open var nextToValidate: Bool = true
-    
+    @IBInspectable open var isRequired: Bool = false {
+        didSet {
+            if self.self.firstStart {
+                self.validationDelegate?.addFieldInValidation(self)
+            }
+            self.firstStart = true
+        }
+    }
     var textoFinal = ""
 }
 
@@ -153,19 +158,19 @@ extension GPSMaskTextField: UITextFieldDelegate{
         
         if self.validation.isValidMax(maxValue: self.maxSize, text: textUpdate) {
             textField.text = textUpdate
-            if let indexField = self.index{
-                self.setValidMinTextField(textUpdate, notificationUser: false)
-                self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
+            
+            self.setValidMinTextField(textUpdate, notificationUser: false)
+            self.validationDelegate?.updateRequired(self, isEmptyField: textUpdate.isEmpty)
+            
+            if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), !textUpdate.isEmpty {
+                self.becomeFirstResponder()
             }
-            if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
-                self.validationDelegate?.nextField(index: index)
-            }
-        } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField), newMask != self.customMask {
+        } else if textUpdate.count != self.maskFormatter.count, let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask)
         }
         
-        if let index = self.index, self.maxSize != -1, textUpdate.count == self.maxSize {
-            self.validationDelegate?.verifyHideKeyboard(index)
+        if self.maxSize != -1, textUpdate.count == self.maxSize {
+            self.validationDelegate?.verifyHideKeyboard(self)
         }
         return false
     }
@@ -185,9 +190,7 @@ extension GPSMaskTextField {
         }else if text.isEmpty, self.isRequired {
             typeError = .RequiredFieldIsEmpty
         }
-        if let index = self.index {
-            self.validationDelegate?.updateValidationField(index, errorValidation: typeError, notificationUser: notificationUser)
-        }
+        self.validationDelegate?.updateValidationField(self, errorValidation: typeError, notificationUser: notificationUser)
     }
     
     private func insertMask(_ textField: UITextField, index: Int, isRemove: Bool, textUpdate: String) -> String {
@@ -230,7 +233,7 @@ extension GPSMaskTextField {
                 returnString += String(textForReturn[indexText])
             }
         }
-       return returnString
+        return returnString
     }
     
     public func getTextWithoutMask() -> String {

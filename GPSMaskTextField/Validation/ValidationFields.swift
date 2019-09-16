@@ -18,17 +18,15 @@ public struct FieldsValidation {
 }
 
 // MARK: - PROTOCOL USED FOR COMMUNICATION WITH CONTROLLER -
- public protocol ValidationFieldsDelegate: NSObjectProtocol {
+public protocol ValidationFieldsDelegate: NSObjectProtocol {
     func allFieldsValid()
     func notValidAllFields(fildesNotValid: [FieldsValidation])
-//    func notValidForSpecificTextField(field: FieldsValidation)
 }
 
 // MARK: - PROTOCOL USED FOR COMMUNICATION WITH CONTROLLER -
-@objc public protocol ValidationActionDelegate: NSObjectProtocol {
+@objc public protocol KeyboardDelegate: NSObjectProtocol {
     @objc optional func showKeyboard(notification: Notification)
     @objc optional func hideKeyboard(notification: Notification)
-    
 }
 
 // MARK: - START OF THE VALIDATION CLASS -
@@ -36,9 +34,10 @@ public class ValidationFields {
     
     // - DECLARATION OF VARIABLES -
     private weak var validateDelegate: ValidationFieldsDelegate?
-    private weak var actionDelegate: ValidationActionDelegate?
-    private var textFieldListForValidation: [FieldsValidation] = [FieldsValidation]()
-    private var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
+    private weak var actionDelegate: KeyboardDelegate?
+    private lazy var textFieldListForValidation: [FieldsValidation] = [FieldsValidation]()
+    private lazy var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
+    private lazy var textFieldListNotInclude: [FieldsValidation] = [FieldsValidation]()
     private var finish = false
     private var view: AnyObject!
     public init(){}
@@ -51,39 +50,45 @@ public class ValidationFields {
 // MARK: - INITIAL SETTING -
 extension ValidationFields {
     public func validationAllFields(for view: AnyObject, delegate: ValidationFieldsDelegate) {
+        self.textFieldListForValidation.removeAll()
+        self.textFieldListNotValid.removeAll()
         self.validateDelegate = delegate
-        self.actionDelegate = view as? ValidationActionDelegate
+        self.actionDelegate = view as? KeyboardDelegate
         self.view = view
         self.registerObserver()
-        var index = 0
         let object = Mirror(reflecting: view)
         for case let (_, value) in object.children {
-            if value is UITextField, value is GPSMaskTextField, (value as! GPSMaskTextField).isRequired {
-                let errorValidate:ErrorValidateMask = (value as! GPSMaskTextField).minimumSize != -1 ? .minimumValueIsNotValid : .none
-                (value as! GPSMaskTextField).validationDelegate = self
-                (value as! GPSMaskTextField).index = index
-                let validate = FieldsValidation(validIsRequired: false, name: (value as! GPSMaskTextField).nameTextField, errorValidation: errorValidate, textField: value as! GPSMaskTextField)
-                self.textFieldListForValidation.append(validate)
-                index += 1
+            if value is UITextField, value is GPSMaskTextField {
+                if (value as! GPSMaskTextField).isRequired {
+                    let errorValidate: ErrorValidateMask = (value as! GPSMaskTextField).minimumSize != -1 ? .minimumValueIsNotValid : .none
+                    (value as! GPSMaskTextField).validationDelegate = self
+                    let validate = FieldsValidation(validIsRequired: false, name: (value as! GPSMaskTextField).nameTextField, errorValidation: errorValidate, textField: value as! GPSMaskTextField)
+                    self.textFieldListForValidation.append(validate)
+                } else {
+                    (value as! GPSMaskTextField).validationDelegate = self
+                    let validate = FieldsValidation(validIsRequired: true, name: (value as! GPSMaskTextField).nameTextField, errorValidation: .none, textField: value as! GPSMaskTextField)
+                    self.textFieldListNotInclude.append(validate)
+                }
             }
         }
     }
     
-    public func addOrRemoveFieldForValidation(textField: GPSMaskTextField) {
+    private func addOrRemoveFieldForValidation(textField: GPSMaskTextField) {
         if textField.isRequired {
             guard self.textFieldListForValidation.filter({$0.textField == textField}).count == 0 else { return }
             let errorValidate:ErrorValidateMask = textField.minimumSize != -1 ? .minimumValueIsNotValid : .none
             textField.validationDelegate = self
-            textField.index = self.textFieldListForValidation.count
             let validate = FieldsValidation(validIsRequired: false, name: textField.nameTextField, errorValidation: errorValidate, textField: textField)
             self.textFieldListForValidation.append(validate)
             self.validationFieldRow(textField: textField)
+            self.textFieldListNotInclude.removeAll(where: {$0.textField == textField})
         } else {
-            textField.index = nil
-            self.textFieldListForValidation.removeAll(where: {$0.textField == textField})
-            self.setIndex()
-            let lastTextField = self.textFieldListForValidation.last?.textField ?? GPSMaskTextField()
-            self.validationFieldRow(textField: lastTextField)
+            if let result = self.textFieldListForValidation.filter({$0.textField == textField}).first {
+                self.textFieldListForValidation.removeAll(where: {$0.textField == result.textField})
+                self.textFieldListNotInclude.append(result)
+                let lastTextField = self.textFieldListForValidation.last?.textField ?? GPSMaskTextField()
+                self.validationFieldRow(textField: lastTextField)
+            }
         }
     }
     
@@ -103,41 +108,34 @@ extension ValidationFields {
         }
         _ = textField.textField(textField, shouldChangeCharactersIn: range, replacementString: lastLatter)
     }
-    
-    private func setIndex() {
-        let listIndex = 0...self.textFieldListForValidation.count - 1
-        listIndex.forEach { (indexRow) in
-            self.textFieldListForValidation[indexRow].textField.index = indexRow
-        }
-    }
 }
 
 // MARK: - IMPLEMENTATION OF VALIDATIONFIELDDELEGATE (GPSTEXTFIELD CLASS COMMUNICATION DELEGATE) -
 extension ValidationFields: ValidationFieldDelegate {
+    func addFieldInValidation(_ textField: GPSMaskTextField) {
+        self.addOrRemoveFieldForValidation(textField: textField)
+    }
+    
     
     // UPDATES REQUIRED FIELD STATUS
-    func updateRequired(_ index: Int, isEmptyField: Bool) {
+    func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool) {
+        guard let index = self.getIndexForValidField(textField) else { return }
         self.textFieldListForValidation[index].validIsRequired = !isEmptyField
         self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: isEmptyField)
     }
     
     // UPDATES THE STATUS OF THE ELEMENT IN THE LIST OF FIELDS FOR VALIDATION AND IF IT IS ERROR ACTION THE DELEGATE FOR COMMUNICATION WITH CONTROLLER
-    func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool) {
+    func updateValidationField(_ textField: GPSMaskTextField, errorValidation: ErrorValidateMask, notificationUser: Bool) {
+        guard let index = self.getIndexForValidField(textField) else { return }
         self.textFieldListForValidation[index].errorValidation = errorValidation
         if errorValidation != .none, notificationUser {
             self.verifyAllValidation(currentElement: self.textFieldListForValidation[index], isEmptyField: false)
         }
     }
     
-    // CHECK IF YOU CAN PASS TO THE NEXT FIELD AFTER YOU ARE VALIDATED
-    func nextField(index: Int) {
-        if index < self.textFieldListForValidation.count - 1, self.textFieldListForValidation[index + 1].errorValidation != .none {
-            self.textFieldListForValidation[index + 1].textField.becomeFirstResponder()
-        }
-    }
-    
     // CHECK IF IT CAN HIDE THE KEYBOARD
-    func verifyHideKeyboard(_ index: Int) {
+    func verifyHideKeyboard(_ textField: GPSMaskTextField) {
+        guard let index = self.getIndexForValidField(textField) else { return }
         if self.finish {
             self.textFieldListForValidation[index].textField.endEditing(true)
         }
@@ -183,6 +181,10 @@ extension ValidationFields {
         }else if !self.finish{
             self.validateDelegate?.notValidAllFields(fildesNotValid: self.textFieldListNotValid)
         }
+    }
+    
+    private func getIndexForValidField(_ textField: GPSMaskTextField) -> Int? {
+        return self.textFieldListForValidation.firstIndex(where: {$0.textField == textField})
     }
     
     // CHECK IF IN THE LIST OF FIELDS, ALL REQUIREDS ARE COMPLETED
