@@ -237,6 +237,19 @@ extension GPSMaskTextField {
         return self.removeMaskText()
     }
     
+    public func setTextWithMask(text: String) {
+        let maskCount = self.maskFormatter.filter({$0 == "#"}).count
+        if text.count <= maskCount {
+            var newText = ""
+            for element in text {
+                newText += String(element)
+                let index = newText.count - 1
+                newText = self.insertMask(self, index: index, isRemove: false, textUpdate: newText)
+            }
+            self.text = newText
+        }
+    }
+    
     private func updateMask(newMask: String) {
         let oldText = self.getTextWithoutMask()
         self.customMask = newMask
