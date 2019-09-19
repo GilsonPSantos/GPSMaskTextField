@@ -15,6 +15,7 @@ protocol ValidationFieldDelegate {
     func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func nextField(index: Int)
     func verifyHideKeyboard(_ index: Int)
+    func forceValidationInTextField(textField: GPSMaskTextField)
 }
 
 @objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
@@ -158,11 +159,11 @@ extension GPSMaskTextField: UITextFieldDelegate{
                 self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
             }
             if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
-                self.becomeFirstResponder()
+//                self.becomeFirstResponder()
 //                self.validationDelegate?.nextField(index: index)
             }
         } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
-            self.updateMask(newMask: newMask)
+            self.updateMask(newMask: newMask, string: string)
         }
         
         if let index = self.index, self.maxSize != -1, textUpdate.count == self.maxSize {
@@ -251,10 +252,11 @@ extension GPSMaskTextField {
         }
     }
     
-    private func updateMask(newMask: String) {
-        let oldText = self.removeAllMask()
+    private func updateMask(newMask: String, string: String) {
+        let oldText = self.removeAllMask() + string
         self.customMask = newMask
         self.setTextWithMask(text: oldText)
+        self.validationDelegate?.forceValidationInTextField(textField: self)
     }
     
     private func removeAllMask() -> String {
