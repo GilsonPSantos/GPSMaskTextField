@@ -10,7 +10,7 @@ import Foundation
 
 
 // MARK: - PROTOCOL -
-protocol ValidationFieldDelegate {
+protocol GPSValidationFieldManagerDelegate {
     func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool)
     func updateValidationField(_ textField: GPSMaskTextField, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func verifyHideKeyboard(_ textField: GPSMaskTextField)
@@ -33,7 +33,7 @@ protocol ValidationFieldDelegate {
     private var validation = Validation()
     private var firstStart = false
     
-    var validationDelegate: ValidationFieldDelegate?
+    var validationDelegate: GPSValidationFieldManagerDelegate?
     public weak var gpsDelegate: GPSMaskTextFieldDelegate?
     
     public override init(frame: CGRect) {
@@ -189,7 +189,7 @@ extension GPSMaskTextField {
         if !self.validation.isValidMin(minValue: self.minSize, text: text) {
             typeError = .minimumValueIsNotValid
         }else if text.isEmpty, self.isRequired {
-            typeError = .RequiredFieldIsEmpty
+            typeError = .requiredFieldIsEmpty
         }
         self.validationDelegate?.updateValidationField(self, errorValidation: typeError, notificationUser: notificationUser)
     }

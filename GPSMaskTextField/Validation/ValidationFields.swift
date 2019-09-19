@@ -18,13 +18,13 @@ public struct FieldsValidation {
 }
 
 // MARK: - PROTOCOL USED FOR COMMUNICATION WITH CONTROLLER -
-public protocol ValidationFieldsDelegate: NSObjectProtocol {
+public protocol GPSValidationFieldsDelegate: NSObjectProtocol {
     func allFieldsValid()
     func notValidAllFields(fildesNotValid: [FieldsValidation])
 }
 
 // MARK: - PROTOCOL USED FOR COMMUNICATION WITH CONTROLLER -
-@objc public protocol KeyboardDelegate: NSObjectProtocol {
+@objc public protocol GPSKeyboardDelegate: NSObjectProtocol {
     @objc optional func showKeyboard(notification: Notification)
     @objc optional func hideKeyboard(notification: Notification)
 }
@@ -33,8 +33,8 @@ public protocol ValidationFieldsDelegate: NSObjectProtocol {
 public class ValidationFields {
     
     // - DECLARATION OF VARIABLES -
-    private weak var validateDelegate: ValidationFieldsDelegate?
-    private weak var actionDelegate: KeyboardDelegate?
+    private weak var validateDelegate: GPSValidationFieldsDelegate?
+    private weak var actionDelegate: GPSKeyboardDelegate?
     private lazy var textFieldListForValidation: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotInclude: [FieldsValidation] = [FieldsValidation]()
@@ -49,11 +49,11 @@ public class ValidationFields {
 
 // MARK: - INITIAL SETTING -
 extension ValidationFields {
-    public func validationAllFields(for view: AnyObject, delegate: ValidationFieldsDelegate) {
+    public func validationAllFields(for view: AnyObject, delegate: GPSValidationFieldsDelegate) {
         self.textFieldListForValidation.removeAll()
         self.textFieldListNotValid.removeAll()
         self.validateDelegate = delegate
-        self.actionDelegate = view as? KeyboardDelegate
+        self.actionDelegate = view as? GPSKeyboardDelegate
         self.view = view
         self.registerObserver()
         let object = Mirror(reflecting: view)
@@ -112,7 +112,7 @@ extension ValidationFields {
 }
 
 // MARK: - IMPLEMENTATION OF VALIDATIONFIELDDELEGATE (GPSTEXTFIELD CLASS COMMUNICATION DELEGATE) -
-extension ValidationFields: ValidationFieldDelegate {
+extension ValidationFields: GPSValidationFieldManagerDelegate {
     
     func forceValidationInTextField(textField: GPSMaskTextField) {
         self.validationFieldRow(textField: textField)

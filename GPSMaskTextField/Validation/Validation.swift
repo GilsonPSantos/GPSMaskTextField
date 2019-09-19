@@ -11,7 +11,7 @@ import UIKit
 
 // MARK: - ENUM ERROR -
 public enum ErrorValidateMask: Error {
-    case RequiredFieldIsEmpty
+    case requiredFieldIsEmpty
     case minimumValueIsNotValid
     case none
 }
