@@ -57,12 +57,13 @@ extension ValidationFields {
         self.view = view
         self.registerObserver()
         let object = Mirror(reflecting: view)
-        for case let (_, value) in object.children {
+        for case let (label, value) in object.children {
             if value is UITextField, value is GPSMaskTextField {
                 if (value as! GPSMaskTextField).isRequired {
                     let errorValidate: ErrorValidateMask = (value as! GPSMaskTextField).minimumSize != -1 ? .minimumValueIsNotValid : .none
                     (value as! GPSMaskTextField).validationDelegate = self
-                    let validate = FieldsValidation(validIsRequired: false, name: (value as! GPSMaskTextField).nameTextField, errorValidation: errorValidate, textField: value as! GPSMaskTextField)
+                    let name = (value as! GPSMaskTextField).nameTextField.isEmpty ? label : (value as! GPSMaskTextField).nameTextField
+                    let validate = FieldsValidation(validIsRequired: false, name: name ?? "", errorValidation: errorValidate, textField: value as! GPSMaskTextField)
                     self.textFieldListForValidation.append(validate)
                 } else {
                     (value as! GPSMaskTextField).validationDelegate = self
@@ -112,10 +113,14 @@ extension ValidationFields {
 
 // MARK: - IMPLEMENTATION OF VALIDATIONFIELDDELEGATE (GPSTEXTFIELD CLASS COMMUNICATION DELEGATE) -
 extension ValidationFields: ValidationFieldDelegate {
+    
+    func forceValidationInTextField(textField: GPSMaskTextField) {
+        self.validationFieldRow(textField: textField)
+    }
+    
     func addFieldInValidation(_ textField: GPSMaskTextField) {
         self.addOrRemoveFieldForValidation(textField: textField)
     }
-    
     
     // UPDATES REQUIRED FIELD STATUS
     func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool) {
