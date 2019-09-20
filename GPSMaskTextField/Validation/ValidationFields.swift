@@ -34,7 +34,7 @@ public class ValidationFields {
     
     // - DECLARATION OF VARIABLES -
     private weak var validateDelegate: GPSValidationFieldsDelegate?
-    private weak var actionDelegate: GPSKeyboardDelegate?
+    private weak var keyboardDelegate: GPSKeyboardDelegate?
     private lazy var textFieldListForValidation: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotInclude: [FieldsValidation] = [FieldsValidation]()
@@ -53,7 +53,7 @@ extension ValidationFields {
         self.textFieldListForValidation.removeAll()
         self.textFieldListNotValid.removeAll()
         self.validateDelegate = delegate
-        self.actionDelegate = view as? GPSKeyboardDelegate
+        self.keyboardDelegate = view as? GPSKeyboardDelegate
         self.view = view
         self.registerObserver()
         let object = Mirror(reflecting: view)
@@ -160,11 +160,11 @@ extension ValidationFields {
     }
     
     @objc private func showKeyboard(notification: Notification) {
-        self.actionDelegate?.showKeyboard?(notification: notification)
+        self.keyboardDelegate?.showKeyboard?(notification: notification)
     }
     
     @objc private func hideKeyboard(notification: Notification) {
-        self.actionDelegate?.hideKeyboard?(notification: notification)
+        self.keyboardDelegate?.hideKeyboard?(notification: notification)
     }
 }
 
