@@ -166,7 +166,9 @@ extension GPSMaskTextField: UITextFieldDelegate{
             if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), !textUpdate.isEmpty {
                 self.becomeFirstResponder()
             }
-        } else if textUpdate.count != self.maskFormatter.count, let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
+        }
+        
+        if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask, string: string)
         }
         
