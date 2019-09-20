@@ -15,10 +15,11 @@ protocol ValidationFieldDelegate {
     func updateValidationField(_ index: Int, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func nextField(index: Int)
     func verifyHideKeyboard(_ index: Int)
+    func forceValidationInTextField(textField: GPSMaskTextField)
 }
 
 @objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
-    @objc optional func updateMask(textField: UITextField) -> String?
+   @objc optional func updateMask(textField: UITextField, textUpdate: String) -> String?
 }
 
 @IBDesignable public class GPSMaskTextField: UITextField {
@@ -158,10 +159,11 @@ extension GPSMaskTextField: UITextFieldDelegate{
                 self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
             }
             if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
-                self.validationDelegate?.nextField(index: index)
+//                self.becomeFirstResponder()
+//                self.validationDelegate?.nextField(index: index)
             }
-        } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField), newMask != self.customMask {
-            self.updateMask(newMask: newMask)
+        } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
+            self.updateMask(newMask: newMask, string: string)
         }
         
         if let index = self.index, self.maxSize != -1, textUpdate.count == self.maxSize {
@@ -250,13 +252,19 @@ extension GPSMaskTextField {
         }
     }
     
-    private func updateMask(newMask: String) {
-        let oldText = self.getTextWithoutMask()
+    private func updateMask(newMask: String, string: String) {
+        let oldText = self.removeAllMask() + string
         self.customMask = newMask
-        self.text = ""
-        for (index, element) in oldText.enumerated() {
-            let range = NSRange(location: index, length: 0)
-            _ = self.textField(self, shouldChangeCharactersIn: range, replacementString: String(element))
+        self.setTextWithMask(text: oldText)
+        self.validationDelegate?.forceValidationInTextField(textField: self)
+    }
+    
+    private func removeAllMask() -> String {
+        var textWithoutMask = self.text ?? ""
+        let characterList = self.maskFormatter.filter({$0 != "#"})
+        characterList.forEach { (characterRow) in
+            textWithoutMask = textWithoutMask.replacingOccurrences(of: String(characterRow), with: "")
         }
+        return textWithoutMask
     }
 }

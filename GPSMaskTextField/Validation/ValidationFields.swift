@@ -115,6 +115,10 @@ extension ValidationFields {
 // MARK: - IMPLEMENTATION OF VALIDATIONFIELDDELEGATE (GPSTEXTFIELD CLASS COMMUNICATION DELEGATE) -
 extension ValidationFields: ValidationFieldDelegate {
     
+    func forceValidationInTextField(textField: GPSMaskTextField) {
+        self.validationFieldRow(textField: textField)
+    }
+    
     // UPDATES REQUIRED FIELD STATUS
     func updateRequired(_ index: Int, isEmptyField: Bool) {
         self.textFieldListForValidation[index].validIsRequired = !isEmptyField
