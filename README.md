@@ -116,7 +116,7 @@ Output:
 
 GPSMaskTextField has a validation class that if instantiated, using reflection, takes care of all the validations configured for the field and notifies its controller if all the fields are valid or not as explained in the section "Delegates of field validation".
 
-To use the automatic validation features, simply invoke the instance of the "ValidationFields ()" class in the viewDidLoad, calling its function "validationAllFields ()", informing which class has the GPSMaskTextField objects to validate in the first parameter and in the second who will implement the delegate with the answers "ValidationFieldsDelegate", according to example below:
+To use the automatic validation features, simply invoke the instance of the "ValidationFields ()" class, calling its function "validationAllFields ()", informing which class has the GPSMaskTextField objects to validate in the first parameter and in the second who will implement the delegate with the answers "GPSValidationFieldsDelegate", according to example below:
 
 The automatic validation only resets the fields that have "Is Required" enabled "On". Fields that have this option "Off" will have their masks applied normally but are not contemplated by this extra validation.
 
@@ -129,13 +129,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField1: GPSMaskTextField!
     @IBOutlet weak var textField2: GPSMaskTextField!
     @IBOutlet weak var textField3: GPSMaskTextField!
+
+    private let validationField = ValidationFields()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ValidationFields().validationAllFields(for: self, delegate: self)
+        validationField.validationAllFields(for: self, delegate: self)
     }
 }
-extension ViewController : ValidationFieldsDelegate {
+extension ViewController : GPSValidationFieldsDelegate {
     func allFieldsValid() {
         // All fields are valid
     }
@@ -150,24 +152,24 @@ The function parameter "notValidAllFields (fildesNotValid: [FieldsValidation])" 
 ```swift
 public struct FieldsValidation {
     var validIsRequired = false // If the field is required
-    var name = "" // Friendly name configured in Interface Builder
+    var name = "" // Friendly name configured in Interface Builder or if nothing is filled, it defaults to the declared @IBOutlet name for textField
     var errorValidation: ErrorValidateMask = .none // Enum with type of error in validation
     var textField = GPSMaskTextField() // TextField field object
 }
 ```
 ## Field Validation Delegates
 
-To use the automatic validation feature provided by the "ValidationFields" class, your Controller must implement the "ValidationFieldsDelegate" and optionally you can implement the "ValidationActionDelegate" to specifically capture the keyboard display and hiding:
+To use the automatic validation feature provided by the "ValidationFields" class, your Controller must implement the "GPSValidationFieldsDelegate" and optionally you can implement the "GPSKeyboardDelegate" to specifically capture the keyboard display and hiding:
 
 ```swift
 // Required to capture validation events
- public protocol ValidationFieldsDelegate: NSObjectProtocol {
+ public protocol GPSValidationFieldsDelegate: NSObjectProtocol {
     func allFieldsValid()
     func notValidAllFields(fildesNotValid: [FieldsValidation])
 }
 
 // Optional for capturing keyboard display or hiding
-@objc public protocol ValidationActionDelegate: NSObjectProtocol {
+@objc public protocol GPSKeyboardDelegate: NSObjectProtocol {
     @objc optional func showKeyboard(notification: Notification)
     @objc optional func hideKeyboard(notification: Notification)
     
