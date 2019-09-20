@@ -157,6 +157,23 @@ public struct FieldsValidation {
     var textField = GPSMaskTextField() // TextField field object
 }
 ```
+
+At any time, you can easily make a non-required field "isRequired = false" as required by simply changing the attribute value to "isRequired = true".
+
+When you make this change automatically the ValidationFields class adds the field to your list of fields to validate and redoes all validations again to ensure that after this change the validation proceeds correctly.
+
+```swift
+    @IBAction func click(_ sender: Any) {
+        self.emailTextField.isRequired = true
+        self.nameTextField.isRequired = false
+    }
+
+```
+
+
+
+
+
 ## Field Validation Delegates
 
 To use the automatic validation feature provided by the "ValidationFields" class, your Controller must implement the "GPSValidationFieldsDelegate" and optionally you can implement the "GPSKeyboardDelegate" to specifically capture the keyboard display and hiding:
