@@ -158,7 +158,9 @@ extension GPSMaskTextField: UITextFieldDelegate{
                 self.setValidMinTextField(textUpdate, notificationUser: false)
                 self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
             }
-        } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
+        }
+        
+        if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask, string: string)
         }
         
