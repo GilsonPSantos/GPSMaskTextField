@@ -75,7 +75,23 @@ self.textField.setTextWithMask(text: String)
 
 If Custom Mask field is filled in these 2 settings will be automatically assigned with the mask size set.
 
-- `Name TextField`: Friendly name, used for the validation option of all the fields (treated below), in which returns to the invalid field this friendly name, in case the developer wants to use it for message presentation.
+- `Name TextField`: Friendly name, used for the validation option of all the fields (treated below), in which returns to the invalid field this friendly name, in case the developer wants to use it for message presentation, if nothing is filled, it defaults to the declared @IBOutlet name for textField.
+
+```swift
+@IBOutlet weak var emailTextField: GPSMaskTextField!
+
+class ViewController: UIViewController, GPSValidationFieldsDelegate {
+    func allFieldsValid() {
+        print("=== ALL VALID")
+    }
+    
+    func notValidAllFields(fildesNotValid: [FieldsValidation]) {
+        print(fildesNotValid.first?.name)
+    }
+}
+
+//Optional("emailTextField")
+```
 
 - `Is Currency`: A value that determines if the field is of the monetary type, if yes the fields "Main Separator and Decimal Separator" should be filled in. By default, this value is off (false).
 
