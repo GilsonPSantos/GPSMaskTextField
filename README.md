@@ -78,9 +78,10 @@ If Custom Mask field is filled in these 2 settings will be automatically assigne
 - `Name TextField`: Friendly name, used for the validation option of all the fields (treated below), in which returns to the invalid field this friendly name, in case the developer wants to use it for message presentation, if nothing is filled, it defaults to the declared @IBOutlet name for textField.
 
 ```swift
-@IBOutlet weak var emailTextField: GPSMaskTextField!
-
 class ViewController: UIViewController, GPSValidationFieldsDelegate {
+    
+    @IBOutlet weak var emailTextField: GPSMaskTextField!
+
     func allFieldsValid() {
         print("=== ALL VALID")
     }
