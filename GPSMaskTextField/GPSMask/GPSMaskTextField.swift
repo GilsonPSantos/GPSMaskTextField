@@ -154,13 +154,9 @@ extension GPSMaskTextField: UITextFieldDelegate{
         
         if self.validation.isValidMax(maxValue: self.maxSize, text: textUpdate) {
             textField.text = textUpdate
-            if let indexField = self.index{
+            if let indexField = self.index {
                 self.setValidMinTextField(textUpdate, notificationUser: false)
                 self.validationDelegate?.updateRequired(indexField, isEmptyField: textUpdate.isEmpty)
-            }
-            if (textUpdate.count == self.maskFormatter.count || textUpdate.count == self.maxSize), let index = self.index, self.nextToValidate, !textUpdate.isEmpty {
-//                self.becomeFirstResponder()
-//                self.validationDelegate?.nextField(index: index)
             }
         } else if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask, string: string)
