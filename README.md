@@ -18,7 +18,7 @@ This framework has a validation system using reflection and in a simple and prac
 [CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate GPSMaskTextField into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod 'GPSMaskTextField', '~> 1.0.1'
+pod 'GPSMaskTextField', '~> 2.0.0'
 ```
 
 ## Usage
@@ -48,7 +48,7 @@ But if you prefer to implement the UITextField delegate itself, you can do so in
 
 - In the Interface Builder we have the following configurations:
 
-![Configurações](https://uploaddeimagens.com.br/images/002/056/639/original/Configuracoes.png)
+![Configurações](https://uploaddeimagens.com.br/images/002/362/339/full/Captura_de_Tela_2019-09-20_%C3%A0s_15.05.24.png)
 
 - `Custom Mask`: Mask to be used as examples:
 ```swift
