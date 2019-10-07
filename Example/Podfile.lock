@@ -1,0 +1,22 @@
+PODS:
+  - GPSMaskTextField (1.0.6)
+
+DEPENDENCIES:
+  - GPSMaskTextField (from `https://github.com/GilsonPSantos/GPSMaskTextField.git`, branch `BranchV2`)
+
+EXTERNAL SOURCES:
+  GPSMaskTextField:
+    :branch: BranchV2
+    :git: https://github.com/GilsonPSantos/GPSMaskTextField.git
+
+CHECKOUT OPTIONS:
+  GPSMaskTextField:
+    :commit: 3aac4ef692bc778cdc8b655a8d8070246171d02a
+    :git: https://github.com/GilsonPSantos/GPSMaskTextField.git
+
+SPEC CHECKSUMS:
+  GPSMaskTextField: 09a4b33c8f65d38a89003b22322db1a54bd9a167
+
+PODFILE CHECKSUM: 68966df3400662f3dcc0e5f63181622bc8a58ea8
+
+COCOAPODS: 1.7.5

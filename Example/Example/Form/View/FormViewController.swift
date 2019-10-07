@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import GPSMaskTextField
 
 class FormViewController: UIViewController {
     
     // MARK: OUTLETS
-    @IBOutlet weak var txtName: UITextField!
-    @IBOutlet weak var txtEmail: UITextField!
-    @IBOutlet weak var txtPassword: UITextField!
-    @IBOutlet weak var txtPhone: UITextField!
-    @IBOutlet weak var txtAddress: UITextField!
-    @IBOutlet weak var txtPostalCode: UITextField!
+    @IBOutlet weak var txtName: GPSMaskTextField!
+    @IBOutlet weak var txtEmail: GPSMaskTextField!
+    @IBOutlet weak var txtPassword: GPSMaskTextField!
+    @IBOutlet weak var txtPhone: GPSMaskTextField!
+    @IBOutlet weak var txtAddress: GPSMaskTextField!
+    @IBOutlet weak var txtPostalCode: GPSMaskTextField!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var btnSearch: UIButton!
     
@@ -25,7 +26,7 @@ class FormViewController: UIViewController {
     // MARK: VARIABLES
     private var presenter: FormViewControllerPresenter!
     private lazy var viewData:FormViewViewData = FormViewViewData()
-    
+    private var validationFields = ValidationFields()
     // MARK: IBACTIONS
     @IBAction func confirm(_ sender: UIButton) {
         
@@ -41,6 +42,7 @@ extension FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.presenter = FormViewControllerPresenter(viewDelegate: self, service: FormService())
+        self.validationFields.validationAllFields(for: self, delegate: self)
     }
 }
 
@@ -49,6 +51,17 @@ extension FormViewController: FormViewControllerViewDelegate {
     func setViewData(viewData: FormViewViewData) {
         self.viewData = viewData
         self.setupfields()
+    }
+}
+
+//MARK: - DELEGATE PRESENTER -
+extension FormViewController: GPSValidationFieldsDelegate {
+    func allFieldsValid() {
+        
+    }
+    
+    func notValidAllFields(fildesNotValid: [FieldsValidation]) {
+        
     }
 }
 
