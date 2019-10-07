@@ -35,6 +35,11 @@ class FormViewController: UIViewController {
     @IBAction func search(_ sender: UIButton) {
         self.presenter.getForm()
     }
+    
+    @IBAction func updatePhoneRequired(_ sender: UIButton) {
+        self.txtPhone.isRequired = true
+    }
+    
 }
 
 //MARK: - LIFE CYCLE -
@@ -57,11 +62,12 @@ extension FormViewController: FormViewControllerViewDelegate {
 //MARK: - DELEGATE PRESENTER -
 extension FormViewController: GPSValidationFieldsDelegate {
     func allFieldsValid() {
-        
+        self.enableButton(true)
     }
     
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
-        
+        self.enableButton(false)
+        fildesNotValid.forEach({self.setBorderColor($0.textField)})
     }
 }
 
@@ -74,5 +80,16 @@ extension FormViewController {
         self.txtPhone.text = self.viewData.phone
         self.txtAddress.text = self.viewData.address
         self.txtPostalCode.text = self.viewData.postalCode
+    }
+    
+    private func enableButton(_ isEnable: Bool) {
+        let color = isEnable ? UIColor.enableColor() : UIColor.disableColor()
+        self.btnConfirm.isEnabled = isEnable
+        self.btnConfirm.backgroundColor = color
+    }
+    
+    private func setBorderColor(_ textField: UITextField) {
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.enableColor().cgColor
     }
 }
