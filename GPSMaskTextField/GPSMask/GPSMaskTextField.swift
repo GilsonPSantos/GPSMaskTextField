@@ -135,7 +135,7 @@ extension GPSMaskTextField {
     }
 }
 
-
+// MARK: - UITEXTFIELDDELEGATE -
 extension GPSMaskTextField: UITextFieldDelegate{
     
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -181,6 +181,28 @@ extension GPSMaskTextField: UITextFieldDelegate{
     public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         self.setValidMinTextField(textField.text ?? "", notificationUser: true)
         return true
+    }
+}
+
+// MARK: - PUBLICS FUNCTIONS -
+extension GPSMaskTextField {
+    //RETURN TEXT WITHOUT THE MASK
+    public func getTextWithoutMask() -> String {
+        return self.removeMaskText()
+    }
+    
+    //INSERT TEXT WITH CONFIGURED MASK
+    public func setTextWithMask(text: String) {
+        let maskCount = self.maskFormatter.filter({$0 == "#"}).count
+        if text.count <= maskCount {
+            var newText = ""
+            for element in text {
+                newText += String(element)
+                let index = newText.count - 1
+                newText = self.insertMask(self, index: index, isRemove: false, textUpdate: newText)
+            }
+            self.text = newText
+        }
     }
 }
 
@@ -237,23 +259,6 @@ extension GPSMaskTextField {
             }
         }
         return returnString
-    }
-    
-    public func getTextWithoutMask() -> String {
-        return self.removeMaskText()
-    }
-    
-    public func setTextWithMask(text: String) {
-        let maskCount = self.maskFormatter.filter({$0 == "#"}).count
-        if text.count <= maskCount {
-            var newText = ""
-            for element in text {
-                newText += String(element)
-                let index = newText.count - 1
-                newText = self.insertMask(self, index: index, isRemove: false, textUpdate: newText)
-            }
-            self.text = newText
-        }
     }
     
     private func updateMask(newMask: String, string: String) {
