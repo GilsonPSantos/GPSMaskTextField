@@ -18,6 +18,7 @@ class FormViewController: UIViewController {
     @IBOutlet weak var txtPhone: GPSMaskTextField!
     @IBOutlet weak var txtAddress: GPSMaskTextField!
     @IBOutlet weak var txtPostalCode: GPSMaskTextField!
+    @IBOutlet weak var currencyValue: GPSMaskTextField!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var btnSearch: UIButton!
     
