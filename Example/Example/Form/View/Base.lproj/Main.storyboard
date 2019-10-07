@@ -70,7 +70,6 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dyt-XG-dnX"/>
                                                     <action selector="confirm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="60W-Fo-Cf0"/>
                                                 </connections>
                                             </button>
@@ -81,7 +80,6 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KbM-Sw-dsO"/>
                                                     <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohs-tK-gT3"/>
                                                 </connections>
                                             </button>
@@ -111,7 +109,7 @@
                         <outlet property="txtAddress" destination="c0m-FC-q5o" id="wC4-BT-0kM"/>
                         <outlet property="txtEmail" destination="djk-7K-svn" id="ayT-iJ-iDS"/>
                         <outlet property="txtName" destination="oVW-eO-Hap" id="1eD-WH-1oE"/>
-                        <outlet property="txtPassword" destination="NIV-x2-m08" id="P9b-df-qf1"/>
+                        <outlet property="txtPassword" destination="0Fb-Gf-hQx" id="b1k-zi-LWw"/>
                         <outlet property="txtPhone" destination="NIV-x2-m08" id="p3a-Kg-AJs"/>
                         <outlet property="txtPostalCode" destination="SsH-W8-4nZ" id="CNn-eU-acb"/>
                     </connections>

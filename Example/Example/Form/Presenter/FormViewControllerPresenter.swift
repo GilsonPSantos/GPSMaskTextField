@@ -9,7 +9,7 @@
 import Foundation
 
 //MARK: - STRUCT VIEW DATA -
-struct FormViewControllerViewData {
+struct FormViewViewData {
     var name = ""
     var email = ""
     var password = ""
@@ -20,14 +20,14 @@ struct FormViewControllerViewData {
 
 //MARK: - VIEW DELEGATE -
 protocol FormViewControllerViewDelegate: NSObjectProtocol {
-    
+    func setViewData(viewData: FormViewViewData)
 }
 
 //MARK: - PRESENTER CLASS -
 class FormViewControllerPresenter {
     
     private weak var viewDelegate: FormViewControllerViewDelegate?
-    private var viewData = FormViewControllerViewData()
+    private var viewData = FormViewViewData()
     private let service: FormService
     
     init(viewDelegate: FormViewControllerViewDelegate, service: FormService) {
@@ -39,14 +39,18 @@ class FormViewControllerPresenter {
 //SERVICE
 extension FormViewControllerPresenter {
     public func getForm() {
-        
-        
-        
+        guard let model = self.service.getForm() else { return }
+        self.parseModelForViewData(model)
+        self.viewDelegate?.setViewData(viewData: self.viewData)
     }
 }
 
 //AUX METHODS
 extension FormViewControllerPresenter {
+    
+    private func parseModelForViewData(_ model: FormModel) {
+        self.viewData = FormViewViewData(name: model.name, email: model.email, password: model.password, phone: model.phone, address: model.address, postalCode: model.postalCode)
+    }
     
 }
 

@@ -24,7 +24,7 @@ class FormViewController: UIViewController {
     
     // MARK: VARIABLES
     private var presenter: FormViewControllerPresenter!
-    private lazy var viewData:FormViewControllerViewData = FormViewControllerViewData()
+    private lazy var viewData:FormViewViewData = FormViewViewData()
     
     // MARK: IBACTIONS
     @IBAction func confirm(_ sender: UIButton) {
@@ -32,7 +32,7 @@ class FormViewController: UIViewController {
     }
     
     @IBAction func search(_ sender: UIButton) {
-        
+        self.presenter.getForm()
     }
 }
 
@@ -46,10 +46,20 @@ extension FormViewController {
 
 //MARK: - DELEGATE PRESENTER -
 extension FormViewController: FormViewControllerViewDelegate {
-
+    func setViewData(viewData: FormViewViewData) {
+        self.viewData = viewData
+        self.setupfields()
+    }
 }
 
 //MARK: - AUX METHODS -
 extension FormViewController {
-
+    private func setupfields() {
+        self.txtName.text = self.viewData.name
+        self.txtEmail.text = self.viewData.email
+        self.txtPassword.text = self.viewData.password
+        self.txtPhone.text = self.viewData.phone
+        self.txtAddress.text = self.viewData.address
+        self.txtPostalCode.text = self.viewData.postalCode
+    }
 }
