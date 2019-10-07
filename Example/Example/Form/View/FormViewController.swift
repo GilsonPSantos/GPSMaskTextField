@@ -38,7 +38,7 @@ class FormViewController: UIViewController {
     }
     
     @IBAction func updatePhoneRequired(_ sender: UIButton) {
-        self.txtPhone.isRequired = true
+        self.txtPhone.isRequired = !self.txtPhone.isRequired
     }
     
 }
@@ -49,6 +49,7 @@ extension FormViewController {
         super.viewDidLoad()
         self.presenter = FormViewControllerPresenter(viewDelegate: self, service: FormService())
         self.validationFields.validationAllFields(for: self, delegate: self)
+        self.txtPhone.gpsDelegate = self
     }
 }
 
@@ -60,7 +61,7 @@ extension FormViewController: FormViewControllerViewDelegate {
     }
 }
 
-//MARK: - DELEGATE PRESENTER -
+//MARK: - DELEGATE GPSVALIDATIONFIELDSDELEGATE -
 extension FormViewController: GPSValidationFieldsDelegate {
     func allFieldsValid() {
         self.enableButton(true)
@@ -69,6 +70,16 @@ extension FormViewController: GPSValidationFieldsDelegate {
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
         self.enableButton(false)
         fildesNotValid.forEach({self.setBorderColor($0.textField)})
+    }
+}
+
+//MARK: - DELEGATE GPSMASKTEXTFIELDDELEGATE -
+extension FormViewController: GPSMaskTextFieldDelegate {
+    func updateMask(textField: UITextField, textUpdate: String) -> String? {
+        if textUpdate.count > 21 {
+            return "+ ## (##) ##### - ####"
+        }
+        return "+ ## (##) #### - ####"
     }
 }
 
