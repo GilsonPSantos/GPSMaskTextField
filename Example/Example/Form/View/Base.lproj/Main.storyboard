@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Form View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="FormViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="45" translatesAutoresizingMaskIntoConstraints="NO" id="AEu-dv-0Ls">
-                                        <rect key="frame" x="10" y="20" width="394" height="620"/>
+                                        <rect key="frame" x="10" y="20" width="394" height="715"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oVW-eO-Hap">
                                                 <rect key="frame" x="0.0" y="0.0" width="394" height="50"/>
@@ -71,6 +71,18 @@
                                                 </state>
                                                 <connections>
                                                     <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Dyt-XG-dnX"/>
+                                                    <action selector="confirm:" destination="BYZ-38-t0r" eventType="touchUpInside" id="60W-Fo-Cf0"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJE-1Y-c3d">
+                                                <rect key="frame" x="0.0" y="665" width="394" height="50"/>
+                                                <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" title="CONSULTAR">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="click:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KbM-Sw-dsO"/>
+                                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ohs-tK-gT3"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -93,6 +105,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="btnConfirm" destination="Scv-Gb-F3t" id="2Te-mB-BWD"/>
+                        <outlet property="btnSearch" destination="fJE-1Y-c3d" id="PuX-h6-23k"/>
+                        <outlet property="txtAddress" destination="c0m-FC-q5o" id="wC4-BT-0kM"/>
+                        <outlet property="txtEmail" destination="djk-7K-svn" id="ayT-iJ-iDS"/>
+                        <outlet property="txtName" destination="oVW-eO-Hap" id="1eD-WH-1oE"/>
+                        <outlet property="txtPassword" destination="NIV-x2-m08" id="P9b-df-qf1"/>
+                        <outlet property="txtPhone" destination="NIV-x2-m08" id="p3a-Kg-AJs"/>
+                        <outlet property="txtPostalCode" destination="SsH-W8-4nZ" id="CNn-eU-acb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
