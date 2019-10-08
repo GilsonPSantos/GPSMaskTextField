@@ -16,6 +16,7 @@ struct FormViewViewData {
     var phone = ""
     var address = ""
     var postalCode = ""
+    var currencyValue = ""
 }
 
 //MARK: - VIEW DELEGATE -
@@ -49,7 +50,7 @@ extension FormViewControllerPresenter {
 extension FormViewControllerPresenter {
     
     private func parseModelForViewData(_ model: FormModel) {
-        self.viewData = FormViewViewData(name: model.name, email: model.email, password: model.password, phone: model.phone, address: model.address, postalCode: model.postalCode)
+        self.viewData = FormViewViewData(name: model.name, email: model.email, password: model.password, phone: model.phone, address: model.address, postalCode: model.postalCode, currencyValue: String(model.currencyValue))
     }
     
 }

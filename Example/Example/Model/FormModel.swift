@@ -15,4 +15,5 @@ struct FormModel: Codable {
     let phone: String
     let address: String
     let postalCode: String
+    let currencyValue: Double
 }

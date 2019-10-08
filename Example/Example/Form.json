@@ -2,7 +2,8 @@
     "name":"Gilson Santos",
     "email":"gilson@gmail.com",
     "password":"1234",
-    "phone":"2199999-6126",
+    "phone":"552139996126",
     "address":"rua vinte de março",
-    "postalCode":"22222-321"
+    "postalCode":"22222-321",
+    "currencyValue": 1.22
 }

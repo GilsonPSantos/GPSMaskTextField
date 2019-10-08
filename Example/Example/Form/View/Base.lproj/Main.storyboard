@@ -90,6 +90,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isRequired" value="YES"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="customMask" value="##### - ###"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Currency Value" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SEc-9I-UyI" customClass="GPSMaskTextField" customModule="GPSMaskTextField">
@@ -158,8 +159,8 @@
                     <connections>
                         <outlet property="btnConfirm" destination="Scv-Gb-F3t" id="2Te-mB-BWD"/>
                         <outlet property="btnSearch" destination="fJE-1Y-c3d" id="PuX-h6-23k"/>
-                        <outlet property="currencyValue" destination="SEc-9I-UyI" id="tV2-eI-N01"/>
                         <outlet property="txtAddress" destination="c0m-FC-q5o" id="wC4-BT-0kM"/>
+                        <outlet property="txtCurrencyValue" destination="SEc-9I-UyI" id="tV2-eI-N01"/>
                         <outlet property="txtEmail" destination="djk-7K-svn" id="ayT-iJ-iDS"/>
                         <outlet property="txtName" destination="oVW-eO-Hap" id="1eD-WH-1oE"/>
                         <outlet property="txtPassword" destination="0Fb-Gf-hQx" id="b1k-zi-LWw"/>

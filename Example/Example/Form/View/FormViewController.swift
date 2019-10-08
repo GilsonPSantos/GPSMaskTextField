@@ -18,7 +18,7 @@ class FormViewController: UIViewController {
     @IBOutlet weak var txtPhone: GPSMaskTextField!
     @IBOutlet weak var txtAddress: GPSMaskTextField!
     @IBOutlet weak var txtPostalCode: GPSMaskTextField!
-    @IBOutlet weak var currencyValue: GPSMaskTextField!
+    @IBOutlet weak var txtCurrencyValue: GPSMaskTextField!
     @IBOutlet weak var btnConfirm: UIButton!
     @IBOutlet weak var btnSearch: UIButton!
     
@@ -89,9 +89,10 @@ extension FormViewController {
         self.txtName.text = self.viewData.name
         self.txtEmail.text = self.viewData.email
         self.txtPassword.text = self.viewData.password
-        self.txtPhone.text = self.viewData.phone
+        self.txtPhone.setTextWithMask(text: self.viewData.phone)
         self.txtAddress.text = self.viewData.address
-        self.txtPostalCode.text = self.viewData.postalCode
+        self.txtPostalCode.setTextWithMask(text: self.viewData.postalCode)
+        self.txtCurrencyValue.text = self.viewData.currencyValue
     }
     
     private func enableButton(_ isEnable: Bool) {
