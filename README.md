@@ -64,18 +64,18 @@ The best thing about using Custom Mask is that for the convenience of the develo
 let valueString = textField.getTextWithoutMask()
 ```
 
-To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an persistence API or layer, this structure already provides a very simple way to add in this text the mask configured in the builder interface using the "updateTextWithValidation" attribute, assigning the text to be inserted.
+To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an persistence API or layer, this structure already provides a very simple way to add in this text the mask configured in the builder interface using the "updateTextWithMask" attribute, assigning the text to be inserted.
 
 ```swift
-self.textField.updateTextWithValidation = yourText
+self.textField.updateTextWithMask = yourText
 ```
 
-After assigning values to one or all text fields using the "updateTextWithValidation" attribute you can invoke the "forceValidation()" function responsible for verifying that all fields meet the rules set in the isRequired fields and triggers the delegate informing them if they are all valid or not.
+After assigning values to one or all text fields using the "updateTextWithMask" attribute you can invoke the "forceValidation()" function responsible for verifying that all fields meet the rules set in the isRequired fields and triggers the delegate informing them if they are all valid or not.
 
 "See more details of the validationFields object right in the topic below."
 
 ```swift
-self.textField.updateTextWithValidation = yourText
+self.textField.updateTextWithMask = yourText
 ...
 self.validationFields.forceValidation()
 ```
