@@ -72,6 +72,8 @@ self.textField.updateTextWithValidation = yourText
 
 After assigning values to one or all text fields using the "updateTextWithValidation" attribute you can invoke the "forceValidation()" function responsible for verifying that all fields meet the rules set in the isRequired fields and triggers the delegate informing them if they are all valid or not.
 
+"See more details of the validationFields object right in the topic below."
+
 ```swift
 self.textField.updateTextWithValidation = yourText
 ...
