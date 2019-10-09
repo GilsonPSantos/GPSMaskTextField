@@ -120,7 +120,7 @@ protocol GPSValidationFieldManagerDelegate {
         }
     }
     
-    public var updateTextWithValidation: String? {
+    public var updateTextWithMask: String? {
         set {
             guard let value = newValue else { return }
             self.setTextWithMask(text: value)
