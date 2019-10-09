@@ -199,6 +199,7 @@ extension GPSMaskTextField: UITextFieldDelegate{
 extension GPSMaskTextField {
     //RETURN TEXT WITHOUT THE MASK
     public func getTextWithoutMask() -> String {
+        if self.maskFormatter.isEmpty { return self.text ?? "" }
         return self.removeMaskText()
     }
     

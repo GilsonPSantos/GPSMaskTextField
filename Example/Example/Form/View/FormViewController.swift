@@ -30,7 +30,7 @@ class FormViewController: UIViewController {
     private var validationFields = ValidationFields()
     // MARK: IBACTIONS
     @IBAction func confirm(_ sender: UIButton) {
-        
+        self.createViewData()
     }
     
     @IBAction func search(_ sender: UIButton) {
@@ -99,7 +99,15 @@ extension FormViewController {
     }
     
     private func createViewData() {
-        
+        let name = txtName.getTextWithoutMask()
+        let email = txtEmail.getTextWithoutMask()
+        let password = txtPassword.getTextWithoutMask()
+        let phone = txtPhone.getTextWithoutMask()
+        let address = txtAddress.getTextWithoutMask()
+        let postalCode = txtPostalCode.getTextWithoutMask()
+        let currencyValue = txtCurrencyValue.getTextWithoutMask()
+        let viewData = FormViewViewData(name: name, email: email, password: password, phone: phone, address: address, postalCode: postalCode, currencyValue: currencyValue)
+        print(viewData)
     }
     
     private func enableButton(_ isEnable: Bool) {
