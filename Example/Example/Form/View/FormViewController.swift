@@ -65,10 +65,12 @@ extension FormViewController: FormViewControllerViewDelegate {
 extension FormViewController: GPSValidationFieldsDelegate {
     func allFieldsValid() {
         self.enableButton(true)
+        self.clearBorder()
     }
     
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
         self.enableButton(false)
+        self.clearBorder()
         fildesNotValid.forEach({self.setBorderColor($0.textField)})
     }
 }
@@ -89,10 +91,11 @@ extension FormViewController {
         self.txtName.text = self.viewData.name
         self.txtEmail.text = self.viewData.email
         self.txtPassword.text = self.viewData.password
-        self.txtPhone.setTextWithMask(text: self.viewData.phone)
+        self.txtPhone.updateTextWithValidation = self.viewData.phone
         self.txtAddress.text = self.viewData.address
-        self.txtPostalCode.setTextWithMask(text: self.viewData.postalCode)
+        self.txtPostalCode.updateTextWithValidation = self.viewData.postalCode
         self.txtCurrencyValue.text = self.viewData.currencyValue
+        self.validationFields.forceValidation()
     }
     
     private func enableButton(_ isEnable: Bool) {
@@ -104,5 +107,15 @@ extension FormViewController {
     private func setBorderColor(_ textField: UITextField) {
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.enableColor().cgColor
+    }
+    
+    private func clearBorder() {
+        let mirror = Mirror(reflecting: self)
+        for case let (_, value) in mirror.children {
+            if value is GPSMaskTextField {
+                (value as! GPSMaskTextField).layer.borderWidth = 0
+                (value as! GPSMaskTextField).layer.borderColor = UIColor.clear.cgColor
+            }
+        }
     }
 }

@@ -119,6 +119,17 @@ protocol GPSValidationFieldManagerDelegate {
             self.firstStart = true
         }
     }
+    
+    public var updateTextWithValidation: String? {
+        set {
+            guard let value = newValue else { return }
+            self.setTextWithMask(text: value)
+        }
+        get {
+            return nil
+        }
+    }
+    
     var textoFinal = ""
 }
 
@@ -192,17 +203,24 @@ extension GPSMaskTextField {
     }
     
     //INSERT TEXT WITH CONFIGURED MASK
-    public func setTextWithMask(text: String) {
+    private func setTextWithMask(text: String) {
         let maskCount = self.maskFormatter.filter({$0 == "#"}).count
+        var newText = ""
         if text.count <= maskCount {
-            var newText = ""
             for element in text {
                 newText += String(element)
                 let index = newText.count - 1
                 newText = self.insertMask(self, index: index, isRemove: false, textUpdate: newText)
             }
-            self.text = newText
+        } else if text.count > maskCount || text.count > self.maxSize {
+            let index = text.index(text.startIndex, offsetBy: maskCount)
+            newText = String(text.prefix(upTo: index))
         }
+        
+        else {
+            newText = text
+        }
+        self.text = newText
     }
 }
 
