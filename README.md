@@ -67,7 +67,7 @@ let valueString = textField.getTextWithoutMask()
 To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an persistence API or layer, this structure already provides a very simple way to add in this text the mask configured in the builder interface using the "updateTextWithValidation" attribute, assigning the text to be inserted.
 
 ```swift
-self.textField.updateTextWithValidation = yorText
+self.textField.updateTextWithValidation = yourText
 ```
 
 - `Minimum Size`: Minimum of characters required for the field.
