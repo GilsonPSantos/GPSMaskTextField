@@ -11,7 +11,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   GPSMaskTextField:
-    :commit: bc550c5c1b4ed0be93461194b3cb1c28e814a53a
+    :commit: cbb2e6c7a9d35fd0f873e095002aad8c5df66f7e
     :git: https://github.com/GilsonPSantos/GPSMaskTextField.git
 
 SPEC CHECKSUMS:

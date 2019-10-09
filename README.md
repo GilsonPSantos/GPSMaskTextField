@@ -64,10 +64,10 @@ The best thing about using Custom Mask is that for the convenience of the develo
 let valueString = textField.getTextWithoutMask()
 ```
 
-To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an API or persistence layer this framework already gives you a very simple way to add in this text the mask configured in the builder interface using the " setTextWithMask ", taking as a parameter the text to be inserted.
+To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an persistence API or layer, this structure already provides a very simple way to add in this text the mask configured in the builder interface using the "updateTextWithValidation" attribute, assigning the text to be inserted.
 
 ```swift
-self.textField.setTextWithMask(text: String)
+self.textField.updateTextWithValidation = yorText
 ```
 
 - `Minimum Size`: Minimum of characters required for the field.
