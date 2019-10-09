@@ -88,14 +88,18 @@ extension FormViewController: GPSMaskTextFieldDelegate {
 //MARK: - AUX METHODS -
 extension FormViewController {
     private func setupfields() {
-        self.txtName.text = self.viewData.name
-        self.txtEmail.text = self.viewData.email
-        self.txtPassword.text = self.viewData.password
+        self.txtName.updateTextWithValidation = self.viewData.name
+        self.txtEmail.updateTextWithValidation = self.viewData.email
+        self.txtPassword.updateTextWithValidation = self.viewData.password
         self.txtPhone.updateTextWithValidation = self.viewData.phone
-        self.txtAddress.text = self.viewData.address
+        self.txtAddress.updateTextWithValidation = self.viewData.address
         self.txtPostalCode.updateTextWithValidation = self.viewData.postalCode
-        self.txtCurrencyValue.text = self.viewData.currencyValue
+        self.txtCurrencyValue.updateTextWithValidation = self.viewData.currencyValue
         self.validationFields.forceValidation()
+    }
+    
+    private func createViewData() {
+        
     }
     
     private func enableButton(_ isEnable: Bool) {

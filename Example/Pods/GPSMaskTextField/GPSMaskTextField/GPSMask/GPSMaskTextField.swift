@@ -204,6 +204,7 @@ extension GPSMaskTextField {
     
     //INSERT TEXT WITH CONFIGURED MASK
     private func setTextWithMask(text: String) {
+        guard self.maxSize != -1 || !self.maskFormatter.isEmpty else { self.text = text; return }
         let maskCount = self.maskFormatter.filter({$0 == "#"}).count
         var newText = ""
         if text.count <= maskCount {
@@ -212,12 +213,13 @@ extension GPSMaskTextField {
                 let index = newText.count - 1
                 newText = self.insertMask(self, index: index, isRemove: false, textUpdate: newText)
             }
-        } else if text.count > maskCount || text.count > self.maxSize {
+        } else if text.count > maskCount, maskCount > 0 {
             let index = text.index(text.startIndex, offsetBy: maskCount)
             newText = String(text.prefix(upTo: index))
-        }
-        
-        else {
+        } else if text.count > self.maxSize, self.maxSize > 0 {
+            let index = text.index(text.startIndex, offsetBy: self.maxSize)
+            newText = String(text.prefix(upTo: index))
+        } else {
             newText = text
         }
         self.text = newText
