@@ -87,7 +87,7 @@ class ViewController: UIViewController, GPSValidationFieldsDelegate {
     }
     
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
-        print(fildesNotValid.first?.name)
+        fildesNotValid.forEach({print($0.name)})
     }
 }
 
