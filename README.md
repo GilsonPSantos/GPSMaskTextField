@@ -208,6 +208,14 @@ To use the automatic validation feature provided by the "ValidationFields" class
 To change a mask already defined in the builder interface dynamically just, for the specific field implement the delegate "GPSMaskTextFieldDelegate", with its function "updateMask", as example below:
 
 ```swift
+@objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    @objc optional func updateMask(textField: UITextField, textUpdate: String) -> String?
+}
+```
+
+Example:
+
+```swift
 import UIKit
 import GPSMaskTextField
 
