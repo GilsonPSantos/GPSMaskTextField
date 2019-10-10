@@ -39,7 +39,6 @@ public class ValidationFields {
     private lazy var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotInclude: [FieldsValidation] = [FieldsValidation]()
     private var finish = false
-    private var view: AnyObject!
     public init(){}
     
     deinit {
@@ -54,7 +53,6 @@ extension ValidationFields {
         self.textFieldListNotValid.removeAll()
         self.validateDelegate = delegate
         self.keyboardDelegate = view as? GPSKeyboardDelegate
-        self.view = view
         self.registerObserver()
         let object = Mirror(reflecting: view)
         for case let (label, value) in object.children {
