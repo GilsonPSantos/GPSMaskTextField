@@ -205,8 +205,36 @@ To use the automatic validation feature provided by the "ValidationFields" class
 
 ## Updating a Mask
 
+To change a mask already defined in the builder interface dynamically just, for the specific field implement the delegate "GPSMaskTextFieldDelegate", with its function "updateMask", as example below:
 
+```swift
+import UIKit
+import GPSMaskTextField
 
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var textField1: GPSMaskTextField!
+    @IBOutlet weak var textField2: GPSMaskTextField!
+    @IBOutlet weak var textField3: GPSMaskTextField!
+    ...
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ...
+        self.textField1.gpsDelegate = self
+    }
+}
+//MARK: - DELEGATE GPSMASKTEXTFIELDDELEGATE -
+extension ViewController: GPSMaskTextFieldDelegate {
+    func updateMask(textField: UITextField, textUpdate: String) -> String? {
+        if textUpdate.count > 21 {
+            return "+ ## (##) ##### - ####"
+        }
+        return "+ ## (##) #### - ####"
+    }
+}
+```
+Implementing this delegate, each character typed updateMask function is called.
 
 ## Thanks
 
