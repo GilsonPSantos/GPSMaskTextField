@@ -30,7 +30,7 @@ public protocol GPSValidationFieldsDelegate: NSObjectProtocol {
 }
 
 // MARK: - START OF THE VALIDATION CLASS -
-public class ValidationFields {
+public class ValidationFields: NSObject {
     
     // - DECLARATION OF VARIABLES -
     private weak var validateDelegate: GPSValidationFieldsDelegate?
@@ -39,7 +39,7 @@ public class ValidationFields {
     private lazy var textFieldListNotValid: [FieldsValidation] = [FieldsValidation]()
     private lazy var textFieldListNotInclude: [FieldsValidation] = [FieldsValidation]()
     private var finish = false
-    public init(){}
+    public override init(){}
     
     deinit {
         self.removeObserver()

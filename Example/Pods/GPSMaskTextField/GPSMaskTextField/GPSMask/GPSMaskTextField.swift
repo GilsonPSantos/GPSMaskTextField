@@ -49,6 +49,7 @@ protocol GPSValidationFieldManagerDelegate {
     
     deinit {
         self.validationDelegate = nil
+        self.updateTextWithValidation = nil
     }
     
     @IBInspectable open var customMask: String {
@@ -120,7 +121,7 @@ protocol GPSValidationFieldManagerDelegate {
         }
     }
     
-    public var updateTextWithValidation: String? {
+    public var updateTextWithValidation: String? { 
         set {
             guard let value = newValue else { return }
             self.setTextWithMask(text: value)

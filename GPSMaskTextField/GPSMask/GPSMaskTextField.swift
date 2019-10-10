@@ -5,21 +5,23 @@
 //  Created by Gilson Santos on 19/02/19.
 //  Copyright © 2019 Gilson Santos. All rights reserved.
 //
+
+
 import UIKit
 import Foundation
 
 
 // MARK: - PROTOCOL -
-protocol GPSValidationFieldManagerDelegate {
+public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    func updateMask(textField: UITextField, textUpdate: String) -> String?
+}
+
+protocol GPSValidationFieldManagerDelegate: NSObjectProtocol {
     func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool)
     func updateValidationField(_ textField: GPSMaskTextField, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func verifyHideKeyboard(_ textField: GPSMaskTextField)
     func addFieldInValidation(_ textField: GPSMaskTextField)
     func forceValidationInTextField(textField: GPSMaskTextField)
-}
-
-public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
-    func updateMask(textField: UITextField, textUpdate: String) -> String?
 }
 
 @IBDesignable public class GPSMaskTextField: UITextField {
@@ -33,7 +35,7 @@ public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
     private var validation = Validation()
     private var firstStart = false
     
-    var validationDelegate: GPSValidationFieldManagerDelegate?
+    weak var validationDelegate: GPSValidationFieldManagerDelegate?
     public weak var gpsDelegate: GPSMaskTextFieldDelegate?
     
     public override init(frame: CGRect) {
@@ -49,6 +51,7 @@ public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
     
     deinit {
         self.validationDelegate = nil
+        self.updateTextWithMask = nil
     }
     
     @IBInspectable open var customMask: String {
