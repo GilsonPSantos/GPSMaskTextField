@@ -18,8 +18,8 @@ protocol GPSValidationFieldManagerDelegate {
     func forceValidationInTextField(textField: GPSMaskTextField)
 }
 
-@objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
-    @objc optional func updateMask(textField: UITextField, textUpdate: String) -> String?
+public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    func updateMask(textField: UITextField, textUpdate: String) -> String?
 }
 
 @IBDesignable public class GPSMaskTextField: UITextField {
