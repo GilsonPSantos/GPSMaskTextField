@@ -179,7 +179,7 @@ extension GPSMaskTextField: UITextFieldDelegate{
             }
         }
         
-        if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
+        if let newMask = self.gpsDelegate?.updateMask(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask, string: string)
         }
         
