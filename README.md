@@ -227,6 +227,7 @@ class ViewController: UIViewController {
 //MARK: - DELEGATE GPSMASKTEXTFIELDDELEGATE -
 extension ViewController: GPSMaskTextFieldDelegate {
     func updateMask(textField: UITextField, textUpdate: String) -> String? {
+        guard self.textField1 == textField else { return nil } // Treatment performed if there is more than one delegate implementation
         if textUpdate.count > 21 {
             return "+ ## (##) ##### - ####"
         }

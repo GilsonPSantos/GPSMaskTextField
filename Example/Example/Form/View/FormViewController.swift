@@ -78,6 +78,7 @@ extension FormViewController: GPSValidationFieldsDelegate {
 //MARK: - DELEGATE GPSMASKTEXTFIELDDELEGATE -
 extension FormViewController: GPSMaskTextFieldDelegate {
     func updateMask(textField: UITextField, textUpdate: String) -> String? {
+        guard self.txtPhone == textField else { return nil }
         if textUpdate.count > 21 {
             return "+ ## (##) ##### - ####"
         }
