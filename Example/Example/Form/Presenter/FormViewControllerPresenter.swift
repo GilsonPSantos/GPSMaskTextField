@@ -35,11 +35,6 @@ class FormViewControllerPresenter {
         self.viewDelegate = viewDelegate
         self.service = service
     }
-    
-    deinit {
-        print("XXXX PRESENTER DESALOCADA")
-    }
-
 }
 
 //SERVICE

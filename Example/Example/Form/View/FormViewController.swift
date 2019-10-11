@@ -40,12 +40,6 @@ class FormViewController: UIViewController {
     @IBAction func updatePhoneRequired(_ sender: UIButton) {
         self.txtPhone.isRequired = !self.txtPhone.isRequired
     }
-    
-    deinit {
-        print("XXXX FORM DESALOCADA")
-    }
-
-    
 }
 
 //MARK: - LIFE CYCLE -

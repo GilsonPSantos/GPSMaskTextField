@@ -5,21 +5,23 @@
 //  Created by Gilson Santos on 19/02/19.
 //  Copyright © 2019 Gilson Santos. All rights reserved.
 //
+
+
 import UIKit
 import Foundation
 
 
 // MARK: - PROTOCOL -
-protocol GPSValidationFieldManagerDelegate {
+public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    func updateMask(textField: UITextField, textUpdate: String) -> String?
+}
+
+protocol GPSValidationFieldManagerDelegate: NSObjectProtocol {
     func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool)
     func updateValidationField(_ textField: GPSMaskTextField, errorValidation: ErrorValidateMask, notificationUser: Bool)
     func verifyHideKeyboard(_ textField: GPSMaskTextField)
     func addFieldInValidation(_ textField: GPSMaskTextField)
     func forceValidationInTextField(textField: GPSMaskTextField)
-}
-
-@objc public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
-    @objc optional func updateMask(textField: UITextField, textUpdate: String) -> String?
 }
 
 @IBDesignable public class GPSMaskTextField: UITextField {
@@ -33,7 +35,7 @@ protocol GPSValidationFieldManagerDelegate {
     private var validation = Validation()
     private var firstStart = false
     
-    var validationDelegate: GPSValidationFieldManagerDelegate?
+    weak var validationDelegate: GPSValidationFieldManagerDelegate?
     public weak var gpsDelegate: GPSMaskTextFieldDelegate?
     
     public override init(frame: CGRect) {
@@ -49,7 +51,7 @@ protocol GPSValidationFieldManagerDelegate {
     
     deinit {
         self.validationDelegate = nil
-        self.updateTextWithValidation = nil
+        self.updateTextWithMask = nil
     }
     
     @IBInspectable open var customMask: String {
@@ -121,7 +123,7 @@ protocol GPSValidationFieldManagerDelegate {
         }
     }
     
-    public var updateTextWithValidation: String? { 
+    public var updateTextWithMask: String? {
         set {
             guard let value = newValue else { return }
             self.setTextWithMask(text: value)
@@ -180,7 +182,7 @@ extension GPSMaskTextField: UITextFieldDelegate{
             }
         }
         
-        if let newMask = self.gpsDelegate?.updateMask?(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
+        if let newMask = self.gpsDelegate?.updateMask(textField: textField, textUpdate: textUpdate), newMask != self.customMask {
             self.updateMask(newMask: newMask, string: string)
         }
         
