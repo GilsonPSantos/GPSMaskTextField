@@ -120,10 +120,6 @@ extension ValidationFields: GPSValidationFieldManagerDelegate {
         self.addOrRemoveFieldForValidation(textField: textField)
     }
     
-    func forceValidationInTextField(textField: GPSMaskTextField) {
-        self.validationFieldRow(textField: textField)
-    }
-    
     // UPDATES REQUIRED FIELD STATUS
     func updateRequired(_ textField: GPSMaskTextField, isEmptyField: Bool) {
         guard let index = self.getIndexForValidField(textField) else { return }
