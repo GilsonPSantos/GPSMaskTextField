@@ -64,10 +64,20 @@ The best thing about using Custom Mask is that for the convenience of the develo
 let valueString = textField.getTextWithoutMask()
 ```
 
-To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an API or persistence layer this framework already gives you a very simple way to add in this text the mask configured in the builder interface using the " setTextWithMask ", taking as a parameter the text to be inserted.
+To cater for the reverse scenario, as in cases where the developer needs to assign a value returned from an persistence API or layer, this structure already provides a very simple way to add in this text the mask configured in the builder interface using the "updateTextWithMask" attribute, assigning the text to be inserted.
 
 ```swift
-self.textField.setTextWithMask(text: String)
+self.textField.updateTextWithMask = yourText
+```
+
+After assigning values to one or all text fields using the "updateTextWithMask" attribute you can invoke the "forceValidation()" function responsible for verifying that all fields meet the rules set in the isRequired fields and triggers the delegate informing them if they are all valid or not.
+
+"See more details of the validationFields object right in the topic below."
+
+```swift
+self.textField.updateTextWithMask = yourText
+...
+self.validationFields.forceValidation()
 ```
 
 - `Minimum Size`: Minimum of characters required for the field.
@@ -87,7 +97,7 @@ class ViewController: UIViewController, GPSValidationFieldsDelegate {
     }
     
     func notValidAllFields(fildesNotValid: [FieldsValidation]) {
-        print(fildesNotValid.first?.name)
+        fildesNotValid.forEach({print($0.name)})
     }
 }
 
@@ -192,6 +202,48 @@ To use the automatic validation feature provided by the "ValidationFields" class
     
 }
 ```
+
+## Updating a Mask
+
+To change a mask already defined in the builder interface dynamically just, for the specific field implement the delegate "GPSMaskTextFieldDelegate", with its function "updateMask", as example below:
+
+```swift
+public protocol GPSMaskTextFieldDelegate: NSObjectProtocol {
+    func updateMask(textField: UITextField, textUpdate: String) -> String?
+}
+```
+
+Example:
+
+```swift
+import UIKit
+import GPSMaskTextField
+
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var textField1: GPSMaskTextField!
+    @IBOutlet weak var textField2: GPSMaskTextField!
+    @IBOutlet weak var textField3: GPSMaskTextField!
+    ...
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        ...
+        self.textField1.gpsDelegate = self
+    }
+}
+//MARK: - DELEGATE GPSMASKTEXTFIELDDELEGATE -
+extension ViewController: GPSMaskTextFieldDelegate {
+    func updateMask(textField: UITextField, textUpdate: String) -> String? {
+        guard self.textField1 == textField else { return nil } // Treatment performed if there is more than one delegate implementation
+        if textUpdate.count > 21 {
+            return "+ ## (##) ##### - ####"
+        }
+        return "+ ## (##) #### - ####"
+    }
+}
+```
+Implementing this delegate, each character typed updateMask function is called.
 
 ## Thanks
 

@@ -41,6 +41,11 @@ class FormViewController: UIViewController {
         self.txtPhone.isRequired = !self.txtPhone.isRequired
     }
     
+    deinit {
+        print("XXXX FORM DESALOCADA")
+    }
+
+    
 }
 
 //MARK: - LIFE CYCLE -
@@ -89,13 +94,13 @@ extension FormViewController: GPSMaskTextFieldDelegate {
 //MARK: - AUX METHODS -
 extension FormViewController {
     private func setupfields() {
-        self.txtName.updateTextWithValidation = self.viewData.name
-        self.txtEmail.updateTextWithValidation = self.viewData.email
-        self.txtPassword.updateTextWithValidation = self.viewData.password
-        self.txtPhone.updateTextWithValidation = self.viewData.phone
-        self.txtAddress.updateTextWithValidation = self.viewData.address
-        self.txtPostalCode.updateTextWithValidation = self.viewData.postalCode
-        self.txtCurrencyValue.updateTextWithValidation = self.viewData.currencyValue
+        self.txtName.updateTextWithMask = self.viewData.name
+        self.txtEmail.updateTextWithMask = self.viewData.email
+        self.txtPassword.updateTextWithMask = self.viewData.password
+        self.txtPhone.updateTextWithMask = self.viewData.phone
+        self.txtAddress.updateTextWithMask = self.viewData.address
+        self.txtPostalCode.updateTextWithMask = self.viewData.postalCode
+        self.txtCurrencyValue.updateTextWithMask = self.viewData.currencyValue
         self.validationFields.forceValidation()
     }
     

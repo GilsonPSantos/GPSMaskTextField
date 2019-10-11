@@ -27,7 +27,7 @@ protocol FormViewControllerViewDelegate: NSObjectProtocol {
 //MARK: - PRESENTER CLASS -
 class FormViewControllerPresenter {
     
-    private weak var viewDelegate: FormViewControllerViewDelegate?
+    weak private var viewDelegate: FormViewControllerViewDelegate?
     private var viewData = FormViewViewData()
     private let service: FormService
     
@@ -35,6 +35,11 @@ class FormViewControllerPresenter {
         self.viewDelegate = viewDelegate
         self.service = service
     }
+    
+    deinit {
+        print("XXXX PRESENTER DESALOCADA")
+    }
+
 }
 
 //SERVICE
