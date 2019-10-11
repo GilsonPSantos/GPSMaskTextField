@@ -8,7 +8,7 @@ s.summary = "GPSMaskTextField lets a user select an ice cream flavor."
 s.requires_arc = true
 
 # 2
-s.version = "1.0.10"
+s.version = "2.0.0"
 
 # 3
 s.license = { :type => "MIT", :file => "LICENSE" }
